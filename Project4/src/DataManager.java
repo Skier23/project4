@@ -19,7 +19,6 @@ import java.util.LinkedList;
 public class DataManager
 {
     private BST<String, Point> binaryTree;
-    private PRQT quadTree;
 
     /**
      * Constructs a new DataManager object. Initializes the binaryTree field.
@@ -27,7 +26,6 @@ public class DataManager
     public DataManager()
     {
         binaryTree = new BST<String, Point>();
-        quadTree = new PRQT();
     }
 
     /**
@@ -57,7 +55,6 @@ public class DataManager
             System.out.println(
                     "Point Inserted: (" + name + ", " + x + ", " + y + ")");
             binaryTree.insert(name, point);
-            quadTree.insert(name, point);
         }
     }
 
@@ -144,171 +141,12 @@ public class DataManager
         System.out.println(visited + " QuadTree Nodes Visited");
     }
 
-    /**
-     * Recursive helper method to find all points in a specified region.
-     * Utilizes the java.awt.Rectangle class and its intersects and contains
-     * methods to determine if a quadrant intersects the region or a point can
-     * be found in the region. Returns the number of nodes visited by the
-     * method.
-     * 
-     * @param rect
-     *            The search region in Rectangle form
-     * @param root
-     *            The node being searched in the current iteration
-     * @param x
-     *            The x coordinate of the current node's upper-left corner
-     * @param y
-     *            The x coordinate of the current node's upper-left corner
-     * @param size
-     *            The size of the current node.
-     * @return the number of nodes visited by the method.
-     */
-    private int recursiveRegionSearch(Rectangle rect, PRNode root, int x, int y,
-            int size)
-    {
-
-        int visited = 1;
-
-        if (root instanceof PRLeaf)
-        {
-            PRLeaf leaf = (PRLeaf) root;
-            Point p = leaf.getPoint1();
-            if (p != null && rect.contains(p))
-            {
-                Iterator<String> iterator = leaf.getNames1().iterator();
-                while (iterator.hasNext())
-                {
-                    System.out.println(
-                            "(" + iterator.next() + ", " + leaf.getPoint1().x
-                                    + ", " + leaf.getPoint1().y + ")");
-                }
-            }
-            p = leaf.getPoint2();
-            if (p != null && rect.contains(p))
-            {
-                Iterator<String> iterator = leaf.getNames2().iterator();
-                while (iterator.hasNext())
-                {
-                    System.out.println(
-                            "(" + iterator.next() + ", " + leaf.getPoint2().x
-                                    + ", " + leaf.getPoint2().y + ")");
-                }
-            }
-            p = leaf.getPoint3();
-            if (p != null && rect.contains(p))
-            {
-                Iterator<String> iterator = leaf.getNames3().iterator();
-                while (iterator.hasNext())
-                {
-                    System.out.println(
-                            "(" + iterator.next() + ", " + leaf.getPoint3().x
-                                    + ", " + leaf.getPoint3().y + ")");
-                }
-            }
-        }
-        else
-        {
-            PRInternal intern = (PRInternal) root;
-            Rectangle nW = new Rectangle(x, y, size / 2, size / 2);
-            Rectangle nE = new Rectangle(x + size / 2, y, size / 2, size / 2);
-            Rectangle sW = new Rectangle(x, y + size / 2, size / 2, size / 2);
-            Rectangle sE = new Rectangle(x + size / 2, y + size / 2, size / 2,
-                    size / 2);
-
-            if (rect.intersects(nW))
-            {
-                visited += recursiveRegionSearch(rect, intern.getNW(), x, y,
-                        size / 2);
-            }
-            if (rect.intersects(nE))
-            {
-                visited += recursiveRegionSearch(rect, intern.getNE(),
-                        x + size / 2, y, size / 2);
-            }
-            if (rect.intersects(sW))
-            {
-                visited += recursiveRegionSearch(rect, intern.getSW(), x,
-                        y + size / 2, size / 2);
-            }
-            if (rect.intersects(sE))
-            {
-                visited += recursiveRegionSearch(rect, intern.getSE(),
-                        x + size / 2, y + size / 2, size / 2);
-            }
-
-        }
-        return visited;
-    }
 
     /**
      * Prints out a list of all Point pairs that intersect with each other
      * Points whose sides abut the given region but don't overlap are not
      * counted by this method.
      */
-    public void duplicates()
-    {
-        System.out.println("Duplicate Points:");
-        duplicatesHelper(quadTree.root);
-
-    }
-
-    /**
-     * Recursive helper for the duplicates method.
-     * 
-     * @param root
-     *            The node being searched in the current iteration.
-     */
-    private void duplicatesHelper(PRNode root)
-    {
-        if (root instanceof PRInternal)
-        {
-            PRInternal temp = (PRInternal) root;
-            if (temp.getNW() != PRQT.empty)
-            {
-                duplicatesHelper(temp.getNW());
-            }
-            if (temp.getNE() != PRQT.empty)
-            {
-                duplicatesHelper(temp.getNE());
-            }
-            if (temp.getSW() != PRQT.empty)
-            {
-                duplicatesHelper(temp.getSW());
-            }
-            if (temp.getSE() != PRQT.empty)
-            {
-                duplicatesHelper(temp.getSE());
-            }
-        }
-        else
-        {
-            PRLeaf temp = (PRLeaf) root;
-            LinkedList<String> names = temp.getNames1();
-            if (names.size() > 1)
-            {
-                System.out.println("(" + temp.getPoint1().x + ", "
-                        + temp.getPoint1().y + ")");
-
-            }
-
-            names = temp.getNames2();
-            if (names.size() > 1)
-            {
-                System.out.println("(" + temp.getPoint2().x + ", "
-                        + temp.getPoint2().y + ")");
-
-            }
-
-            names = temp.getNames3();
-            if (names.size() > 1)
-            {
-                System.out.println("(" + temp.getPoint3().x + ", "
-                        + temp.getPoint3().y + ")");
-
-            }
-
-        }
-    }
 
     /**
      * Searches for a Point found with the specified name from the tree and
@@ -353,7 +191,7 @@ public class DataManager
     public void dump()
     {
         binaryDump();
-        quadDump();
+
     }
     /**
      * Prints out a list of all Points within the BST
@@ -369,18 +207,7 @@ public class DataManager
         System.out.println("BST size is: " + binaryTree.size());
     }
     
-    /**
-     * Prints out a list of all nodes and points within the QuadTree
-     */
-    public void quadDump()
-    {
-        System.out.println("QuadTree Dump:");
 
-        int visited = quadDumpHelper(quadTree.root, 0, 0, 0, 1024);
-
-        System.out.println(
-                "QuadTree Size: " + visited + " QuadTree Nodes Printed.");
-    }
 
     /**
      * Helper method called by dump() to iterate through the BST recursively
@@ -408,96 +235,7 @@ public class DataManager
         }
     }
 
-    /**
-     * Helper method called by dump() to iterate through the Quadtree
-     * recursively This method is where the names and values of the Points are
-     * actually printed when calling the dump() command. It also prints out the
-     * node structure in the order of NW, NE, SW, and SE.
-     * 
-     * @param root
-     *            The current node we are looking at
-     * @param level
-     *            The depth of the current node we're looking at
-     * @param x
-     *            The x coordinate of the top-left corner of the current node
-     * @param y
-     *            The x coordinate of the top-left corner of the current node
-     * @param size
-     *            The size of the current node
-     * @return the number of nodes visited by the method
-     */
-    private int quadDumpHelper(PRNode root, int level, int x, int y, int size)
-    {
-        int visited = 1;
-        String spaces = "";
-        for (int i = 0; i < level; i++)
-        {
-            spaces += "  ";
-        }
-        if (root instanceof PRInternal)
-        {
-            System.out.println(spaces + "Node at " + x + ", " + y + ", " + size
-                    + ": Internal");
-            PRInternal temp = (PRInternal) root;
-
-            visited += quadDumpHelper(temp.getNW(), level + 1, x, y, size / 2);
-
-            visited += quadDumpHelper(temp.getNE(), level + 1, x + size / 2, y,
-                    size / 2);
-
-            visited += quadDumpHelper(temp.getSW(), level + 1, x, y + size / 2,
-                    size / 2);
-
-            visited += quadDumpHelper(temp.getSE(), level + 1, x + size / 2,
-                    y + size / 2, size / 2);
-
-        }
-        else
-        {
-            PRLeaf temp = (PRLeaf) root;
-            String empty = "";
-            if (root == PRQT.empty)
-            {
-                empty = "Empty";
-            }
-
-            System.out.println(spaces + "Node at " + x + ", " + y + ", " + size
-                    + ": " + empty);
-            Point point1 = temp.getPoint1();
-            if (point1 != null)
-            {
-                Iterator<String> iterator = temp.getNames1().iterator();
-                while (iterator.hasNext())
-                {
-                    System.out.println(spaces + "(" + iterator.next() + ", "
-                            + point1.x + ", " + point1.y + ")");
-
-                }
-            }
-            Point point2 = temp.getPoint2();
-            if (point2 != null)
-            {
-                Iterator<String> iterator = temp.getNames2().iterator();
-                while (iterator.hasNext())
-                {
-                    System.out.println(spaces + "(" + iterator.next() + ", "
-                            + point2.x + ", " + point2.y + ")");
-                }
-            }
-            Point point3 = temp.getPoint3();
-            if (point3 != null)
-            {
-                Iterator<String> iterator = temp.getNames3().iterator();
-                while (iterator.hasNext())
-                {
-                    System.out.println(spaces + "(" + iterator.next() + ", "
-                            + point3.x + ", " + point3.y + ")");
-                }
-            }
-
-        }
-        return visited;
-    }
+ 
 
     /**
      * @return the number of points held in the trees
