@@ -1,8 +1,5 @@
 import java.awt.Point;
-import java.awt.Rectangle;
 import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.LinkedList;
 
 /**
  * DataManager creates and maintains a Binary Search Tree in the binaryTree
@@ -19,13 +16,16 @@ import java.util.LinkedList;
 public class DataManager
 {
     private BST<String, Point> binaryTree;
-
+    private byte[] database;
+    
     /**
      * Constructs a new DataManager object. Initializes the binaryTree field.
      */
-    public DataManager()
+    public DataManager(int blocksize)
     {
         binaryTree = new BST<String, Point>();
+        database = new byte[blocksize];
+        
     }
 
     /**

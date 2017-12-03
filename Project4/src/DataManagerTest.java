@@ -26,7 +26,7 @@ public class DataManagerTest
     @Before
     public void setUp()
     {
-        manager = new DataManager();
+        manager = new DataManager(1);
 
     }
 
