@@ -77,70 +77,8 @@ public class DataManager
             return null;
         }
 
-        quadTree.remove(name, p);
-
         return name;
     }
-
-    /**
-     * Removes the first Point found with the specified height, width, and
-     * location from the tree. Fails if the tree is empty
-     * 
-     * @param x
-     *            X coordinate of the new Point's upper left corner
-     * @param y
-     *            y coordinate of the new Point's upper right corner
-     * @return the name of the point removed
-     */
-    public String remove(int x, int y)
-    {
-        if (checkParams(x, y))
-        {
-            Point p = new Point(x, y);
-            String name = quadTree.remove(null, p);
-            if (name != null)
-            {
-                binaryTree.remove(name, p);
-                return name;
-            }
-        }
-        System.out.println("Point Rejected: (" + x + ", " + y + ")");
-        return null;
-    }
-
-    /**
-     * Prints out a list of all Points that intersect with the region with the
-     * provided location and size. Fails if the region has 0 or negative
-     * dimensions. Points whose sides abut the given region but don't overlap
-     * are not counted by this method.
-     * 
-     * @param x
-     *            X coordinate of the search region's upper left corner
-     * @param y
-     *            y coordinate of the search region's upper right corner
-     * @param w
-     *            width of the search region
-     * @param h
-     *            height of the search region
-     */
-    public void regionSearch(int x, int y, int w, int h)
-    {
-        if (h <= 0 || w <= 0) // search region can be out of bounds
-        {
-            System.out.println("Invalid Region: (" + x + ", " + y + ", " + w
-                    + ", " + h + ")");
-            return;
-        }
-
-        System.out.println("Points Intersecting Region: (" + x + ", " + y + ", "
-                + w + ", " + h + ")");
-
-        int visited = recursiveRegionSearch(new Rectangle(x, y, w, h),
-                quadTree.root, 0, 0, 1024);
-
-        System.out.println(visited + " QuadTree Nodes Visited");
-    }
-
 
     /**
      * Prints out a list of all Point pairs that intersect with each other
