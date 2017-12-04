@@ -12,7 +12,7 @@ public class MemoryManager
         data = new byte[capacity];
     }
 
-    public void insert(String string)
+    public int insert(String string)
     {
         byte[] stringBytes = string.getBytes();
         byte[] len = ByteBuffer.allocate(4).putInt(stringBytes.length).array();
@@ -33,7 +33,11 @@ public class MemoryManager
             data[size + 3 + i] = stringBytes[i];
         }
 
+        int handle = size;
+        
         size += stringBytes.length + 3;
+        
+        return handle;
     }
 
     public boolean delete(int handle)

@@ -17,9 +17,12 @@ public class SongSearchTest
     {
         DataManager data = new DataManager(10, 10);
         
-        String[] command = {"nothing"};
+        assertFalse(SongSearch.execute("nothing", data));
         
-        assertFalse(SongSearch.execute(command, data));
+        assertFalse(SongSearch.execute("print face", data));
+        assertTrue(SongSearch.execute("print artist", data));
+        assertTrue(SongSearch.execute("print song", data));
+        assertTrue(SongSearch.execute("print tree", data));
     }
 
 }

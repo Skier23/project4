@@ -90,60 +90,6 @@ public class DataManager
     }
 
     /**
-     * Prints out a list of all Points within the BST, followed by a list of
-     * the points and nodes in the QuadTree
-     * Split to assist in testing
-     */
-    public void printTree()
-    {
-        binaryDump();
-
-    }
-    /**
-     * Prints out a list of all Points within the BST
-     */
-    public void binaryDump()
-    {
-        System.out.println("BST dump:");
-        if (artistTree.root == null)
-        {
-            System.out.println("Node has depth 0, Value (null)");
-        }
-        binaryDumpHelper(artistTree.root, 0);
-        System.out.println("BST size is: " + artistTree.size());
-    }
-    
-
-
-    /**
-     * Helper method called by dump() to iterate through the BST recursively
-     * This method is where the names and values of the Points are actually
-     * printed when calling the dump() command
-     * 
-     * @param root
-     *            The current node we are looking at
-     * @param level
-     *            The depth of the current node we're looking at
-     */
-    private void binaryDumpHelper(Node<String, Point> root, int level)
-    {
-        if (root != null)
-        {
-
-            binaryDumpHelper(root.left(), level + 1);
-
-            // Print out the node's data.
-            System.out.println(
-                    "Node has depth " + level + ", Value (" + root.key() + ", "
-                            + root.value().x + ", " + root.value().y + ")");
-
-            binaryDumpHelper(root.right(), level + 1);
-        }
-    }
-
- 
-
-    /**
      * @return the number of points held in the trees
      */
     public int getSize()
@@ -177,6 +123,50 @@ public class DataManager
         
     }
 
+    /**
+     * Prints out a list of all Points within the BST, followed by a list of
+     * the points and nodes in the QuadTree
+     * Split to assist in testing
+     */
+    public void printTree()
+    {
+
+        System.out.println("Printing artist tree:");
+
+        binaryDumpHelper(artistTree.root, 0);
+        
+        System.out.println("Printing song tree:");
+
+        binaryDumpHelper(artistTree.root, 0);
+
+    }
+
+    /**
+     * Helper method called by dump() to iterate through the BST recursively
+     * This method is where the names and values of the Points are actually
+     * printed when calling the dump() command
+     * 
+     * @param root
+     *            The current node we are looking at
+     * @param level
+     *            The depth of the current node we're looking at
+     */
+    private void binaryDumpHelper(Node<String, Point> root, int level)
+    {
+        if (root != null)
+        {
+    
+            binaryDumpHelper(root.left(), level + 1);
+    
+            // Print out the node's data.
+            System.out.println(root.
+                    "Node has depth " + level + ", Value (" + root.key() + ", "
+                            + root.value().x + ", " + root.value().y + ")");
+    
+            binaryDumpHelper(root.right(), level + 1);
+        }
+    }
+
     public void listArtist(String string)
     {
         // TODO Auto-generated method stub
@@ -188,8 +178,6 @@ public class DataManager
         // TODO Auto-generated method stub
         
     }
-
-
 
     public void removeSong(String string)
     {

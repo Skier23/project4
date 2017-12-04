@@ -60,10 +60,9 @@ public class SongSearch
             // Ignore blank lines
             if (!line.isEmpty() && !line.equals("\n"))
             {
-                // Divide up the line into an array of strings
-                String[] split = line.split("\\s+");
+
                 // Interpret command
-                execute(split, manager);
+                execute(line, manager);
             }
 
         }
@@ -74,13 +73,14 @@ public class SongSearch
     /**
      * Executes a command by calling the appropriate method in DataManager
      * 
-     * @param command
-     *            A string array that contains the command and its parameters
+     * @param input
+     *            A string that contains the command and its parameters
      * @return true if the command was valid, false otherwise.
      */
-    public static boolean execute(String[] command, DataManager data)
+    public static boolean execute(String input, DataManager data)
     {
-        String command
+        // Divide up the command into an array of strings
+        String[] command = input.split("\\s+");
         
         switch (command[0].toLowerCase())
         {
