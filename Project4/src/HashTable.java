@@ -23,7 +23,7 @@ public class HashTable
             {
                 if (tempTable[i] != null && tempTable[i] != tombstone)
                 {
-                    insert(tempTable[i].getString(), tempTable[i]);
+                    insert(tempTable[i]);
                 }
             }
         }
@@ -69,6 +69,7 @@ public class HashTable
             return temp;
         }
     }
+    
     
     private int hashFunction(String toHash)
     {
