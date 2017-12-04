@@ -23,6 +23,8 @@ public class SongSearchTest
         assertTrue(SongSearch.execute("print artist", data));
         assertTrue(SongSearch.execute("print song", data));
         assertTrue(SongSearch.execute("print tree", data));
+        
+        
     }
 
 }

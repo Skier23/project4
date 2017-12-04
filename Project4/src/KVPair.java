@@ -6,7 +6,7 @@
  * @version 2017-12-03
  *
  */
-public class KVPair
+public class KVPair implements Comparable<KVPair>
 {
     private Handle key;
     private Handle value;
@@ -48,4 +48,16 @@ public class KVPair
     {
         return "(" + key + "," + value + ")";
     }
+
+    @Override
+    public int compareTo(KVPair other)
+    {
+        int keyCompare = key.compareTo(other.getKey());
+        if (keyCompare == 0)
+        {
+            return value.compareTo(other.getValue());
+        }
+        return keyCompare;
+    }
+
 }

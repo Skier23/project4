@@ -12,15 +12,6 @@ public class Handle implements Comparable<Handle>
         handle = myHandle;
         manager = myData;
     }
-    @Override
-    public int compareTo(Handle other)
-    {
-        
-        
-        return getString().compareTo(other.getString());
-        
-    }
-    
     public int getHandle()
     {
         return handle;
@@ -33,5 +24,12 @@ public class Handle implements Comparable<Handle>
             return null;
         }
         return new String(manager.getRecord(handle));
+    }
+    @Override
+    public int compareTo(Handle other)
+    {
+        
+        return getString().compareTo(other.getString());
+        
     }
 }

@@ -12,8 +12,7 @@ import java.util.Stack;
  * @author Tyler Bench, ski23
  * @author Christian Dy, k4b0odls
  * @version 2017-09-24
- * @param <Key>
- *            The Key value used to locate a node
+
  * @param <T>
  *            The generic data to be held within a node.
  * 
@@ -22,14 +21,14 @@ import java.util.Stack;
  * 
  * 
  */
-public class BST<Key extends Comparable<? super Key>, T>
-        implements Iterable<Node<Key, T>>
+public class BST<T extends Comparable<? super T>>
+        implements Iterable<Node<T>>
 {
     /**
      * @param root
      *            The first node within the tree
      */
-    public Node<Key, T> root;
+    public Node<T> root;
 
     /**
      * @param nodecount
@@ -95,36 +94,14 @@ public class BST<Key extends Comparable<? super Key>, T>
     }
 
     /**
-     * Remove a record from the tree corresponding to the given key containing
-     * the given data
-     * 
-     * @param k
-     *            Key value of record to remove.
-     * @param data
-     *            Key data of the record to remove.
-     * @return true if a record was removed, false otherwise.
-     */
-    public boolean remove(T data)
-    {
-        ArrayList<T> list = new ArrayList<>();
-        findhelp(root, data, list); // First find it
-        if (!list.isEmpty())
-        {
-            root = removehelp(root, data); // Now remove it
-            nodecount--;
-        }
-        return !list.isEmpty();
-    }
-
-    /**
      * @return Record with key value k, null if none exist.
      * @param k
      *            The key value to find.
      */
-    public ArrayList<T> find(Key k)
+    public ArrayList<T> find(T t)
     {
         ArrayList<T> list = new ArrayList<>();
-        findhelp(root, k, list);
+        findhelp(root, t, list);
         return list;
     }
 
@@ -137,23 +114,23 @@ public class BST<Key extends Comparable<? super Key>, T>
     }
 
     /**
-     * Recursive helper method to remove a node with key value k
+     * Recursive helper method to remove a node with value T
      * 
      * @return The tree with the node removed
      */
-    private Node<Key, T> removehelp(Node<T> rt)
+    private Node<T> removehelp(Node<T> rt, T t)
     {
         if (rt == null)
         {
             return null;
         }
-        if (rt.key().compareTo(k) > 0) // k is left of rt
+        if (rt.value().compareTo(t) > 0) // k is left of rt
         {
-            rt.setLeft(removehelp(rt.left(), k));
+            rt.setLeft(removehelp(rt.left(), t));
         }
-        else if (rt.key().compareTo(k) < 0) // k is right of rt
+        else if (rt.value().compareTo(t) < 0) // k is right of rt
         {
-            rt.setRight(removehelp(rt.right(), k));
+            rt.setRight(removehelp(rt.right(), t));
         }
         else
         { // Found it
@@ -167,72 +144,15 @@ public class BST<Key extends Comparable<? super Key>, T>
             }
             else
             { // Two children
-                Node<Key, T> temp = getmin(rt.right());
+                Node<T> temp = getmin(rt.right());
                 rt.setValue(temp.value());
-                rt.setKey(temp.key());
                 rt.setRight(deletemin(rt.right()));
             }
         }
         return rt;
     }
 
-    /**
-     * Recursive helper method to remove a node with key value k containing a
-     * given data value
-     * 
-     * @param k
-     *            the desired key value
-     * @param data
-     *            the desired data value
-     * 
-     * @return The tree with the node removed
-     */
-    private Node<Key, T> removehelp(Node<Key, T> rt, Key k, T data)
-    {
-        if (rt == null)
-        {
-            return null;
-        }
-        if (rt.key().compareTo(k) > 0) // k is left of rt
-        {
-            rt.setLeft(removehelp(rt.left(), k, data));
-        }
-        else if (rt.key().compareTo(k) < 0) // k is right of rt
-        {
-            rt.setRight(removehelp(rt.right(), k, data));
-        }
-        else // key values are equal
-        {
-            if (rt.value().equals(data)) // data values are equal, we found it!
-            {
-
-                if (rt.left() == null)
-                {
-                    // left is empty, so replace this node with right
-                    return rt.right();
-                }
-                else if (rt.right() == null)
-                {
-                    // right is empty and left isn't so replace this node with
-                    // left
-                    return rt.left();
-                }
-                else
-                { // Two children
-                    Node<Key, T> temp = getmin(rt.right());
-                    rt.setValue(temp.value());
-                    rt.setKey(temp.key());
-                    rt.setRight(deletemin(rt.right()));
-                }
-            }
-            else // duplicates keys always place on the right, so check there
-            {
-                rt.setRight(removehelp(rt.right(), k, data));
-            }
-        }
-
-        return rt;
-    }
+ 
 
     /**
      * A recursive helper method used to find all nodes corresponding to a given
@@ -246,24 +166,24 @@ public class BST<Key extends Comparable<? super Key>, T>
      *            An ArrayList containing the values of all nodes corresponding
      *            to the given key
      */
-    private void findhelp(Node<Key, T> rt, Key k, ArrayList<T> result)
+    private void findhelp(Node<T> rt, T t, ArrayList<T> result)
     {
         if (rt == null)
         {
             return;
         }
-        if (rt.key().compareTo(k) > 0)
+        if (rt.value().compareTo(t) > 0)
         {
             if (result.size() >= 1)
             {
                 return;
             }
-            findhelp(rt.left(), k, result);
+            findhelp(rt.left(), t, result);
         }
-        else if (rt.key().compareTo(k) == 0)
+        else if (rt.value().compareTo(t) == 0)
         {
             result.add(rt.value());
-            findhelp(rt.right(), k, result);
+            findhelp(rt.right(), t, result);
         }
         else
         {
@@ -271,7 +191,7 @@ public class BST<Key extends Comparable<? super Key>, T>
             {
                 return;
             }
-            findhelp(rt.right(), k, result);
+            findhelp(rt.right(), t, result);
         }
     }
 
@@ -291,7 +211,7 @@ public class BST<Key extends Comparable<? super Key>, T>
      * 
      * @return The current subtree, modified to contain the new item
      */
-    private Node<Key, T> inserthelp(Node<Key, T> rt, Key k, T t, int level)
+    private Node<T> inserthelp(Node<T> rt, T t, int level)
     {
         if (rt == null)
         {
@@ -300,17 +220,17 @@ public class BST<Key extends Comparable<? super Key>, T>
              * "BST inserthelp: this node is null, adding node at level " +
              * level);
              */
-            return new Node<Key, T>(k, t);
+            return new Node<T>(t);
         }
-        if (rt.key().compareTo(k) > 0)
+        if (rt.value().compareTo(t) > 0)
         {
             // System.out.println("turning left");
-            rt.setLeft(inserthelp(rt.left(), k, t, level + 1));
+            rt.setLeft(inserthelp(rt.left(), t, level + 1));
         }
-        else if (rt.key().compareTo(k) < 0)
+        else if (rt.value().compareTo(t) < 0)
         {
             // System.out.println("turning right");
-            rt.setRight(inserthelp(rt.right(), k, t, level + 1));
+            rt.setRight(inserthelp(rt.right(), t, level + 1));
         }
         else // duplicate node, adding new node to its right
         {
@@ -318,7 +238,7 @@ public class BST<Key extends Comparable<? super Key>, T>
             // The right node is already occupied
             if (rt.right() != null)
             {
-                Node<Key, T> temp = new Node<Key, T>(k, t, null, rt.right());
+                Node<T> temp = new Node<T>(t, null, rt.right());
                 rt.setRight(temp);
                 /*
                  * System.out.println(
@@ -327,7 +247,7 @@ public class BST<Key extends Comparable<? super Key>, T>
                  */
                 return rt;
             }
-            rt.setRight(inserthelp(rt.right(), k, t, level + 1));
+            rt.setRight(inserthelp(rt.right(), t, level + 1));
         }
         return rt;
     }
@@ -338,7 +258,7 @@ public class BST<Key extends Comparable<? super Key>, T>
      * @param rt
      * @return the left-most node in the tree
      */
-    private Node<Key, T> getmin(Node<Key, T> rt)
+    private Node<T> getmin(Node<T> rt)
     {
         if (rt.left() == null)
         {
@@ -353,7 +273,7 @@ public class BST<Key extends Comparable<? super Key>, T>
      * @param rt
      * @return the left-most node in the tree
      */
-    private Node<Key, T> deletemin(Node<Key, T> rt)
+    private Node<T> deletemin(Node<T> rt)
     {
         if (rt.left() == null)
         {
@@ -369,7 +289,7 @@ public class BST<Key extends Comparable<? super Key>, T>
      * @return a new Node iterator for this tree
      */
     @Override
-    public Iterator<Node<Key, T>> iterator()
+    public Iterator<Node<T>> iterator()
     {
         return new PreBSTIterator(root);
     }
@@ -378,12 +298,12 @@ public class BST<Key extends Comparable<? super Key>, T>
      * Iterates over the nodes in the BST
      * 
      */
-    private class PreBSTIterator implements Iterator<Node<Key, T>>
+    private class PreBSTIterator implements Iterator<Node<T>>
     {
         // The current node the iterator is on
-        private Node<Key, T> thisNode;
+        private Node<T> thisNode;
         // The stack of nodes representing the path to the currentNode
-        private Stack<Node<Key, T>> treeStack;
+        private Stack<Node<T>> treeStack;
 
         /**
          * Creates an iterator for the binary search tree with the given root
@@ -391,7 +311,7 @@ public class BST<Key extends Comparable<? super Key>, T>
          * @param root
          *            the root of the BST
          */
-        public PreBSTIterator(Node<Key, T> root)
+        public PreBSTIterator(Node<T> root)
         {
             thisNode = root;
             treeStack = new Stack<>();
@@ -407,13 +327,13 @@ public class BST<Key extends Comparable<? super Key>, T>
          *             method before this method.
          */
         @Override
-        public Node<Key, T> next()
+        public Node<T> next()
         {
             if (!hasNext())
             {
                 throw new NoSuchElementException();
             }
-            Node<Key, T> currentNode = thisNode;
+            Node<T> currentNode = thisNode;
             advance();
             return currentNode;
         }

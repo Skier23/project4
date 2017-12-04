@@ -8,7 +8,7 @@
  * @version 2017-09-24
  * 
  * @param <T>
- *          The generic data type stored within the node
+ *            The generic data type stored within the node
  */
 public class Node<T>
 {
@@ -22,7 +22,6 @@ public class Node<T>
     // Node's right-hand child node
     private Node<T> right;
 
-    
     // ~ Constructor
     // ............................................................
     // ------------------------------------------------------------
@@ -39,9 +38,8 @@ public class Node<T>
      * @param rightLocal
      *            The new node's right hand sub node
      */
-    public Node(Key k, T data, Node<T> leftLocal, Node<T> rightLocal)
+    public Node(T data, Node<T> leftLocal, Node<T> rightLocal)
     {
-        key = k;
         value = data;
         left = leftLocal;
         right = rightLocal;
@@ -57,9 +55,8 @@ public class Node<T>
      * @param data
      *            The data contained within the node
      */
-    public Node(Key k, T data)
+    public Node(T data)
     {
-        key = k;
         value = data;
         left = null;
         right = null;
@@ -68,25 +65,7 @@ public class Node<T>
     // ~ Methods
     // ................................................................
     // ------------------------------------------------------------
-    /**
-     * @return the key value held by the node
-     */
-    public Key key()
-    {
-        return key;
-    }
 
-    // ------------------------------------------------------------
-    /**
-     * Changes the node's key value
-     * 
-     * @param k
-     *            The new key value to be held by the node
-     */
-    public void setKey(Key k)
-    {
-        key = k;
-    }
 
     // ------------------------------------------------------------
     /**

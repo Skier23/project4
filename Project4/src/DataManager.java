@@ -17,8 +17,8 @@ import java.util.Arrays;
  */
 public class DataManager
 {
-    private BST<String, Point> artistTree;
-    private BST<String, Point> songTree;
+    private BST<KVPair> artistTree;
+    private BST<KVPair> songTree;
     private MemoryManager database;
     private HashTable table;
 
@@ -28,7 +28,7 @@ public class DataManager
      */
     public DataManager(int blocksize, int initialHashSize)
     {
-        artistTree = new BST<String, Point>();
+        artistTree = new BST<KVPair>();
         database = new MemoryManager(blocksize);
         table = new HashTable(initialHashSize);
         
@@ -151,7 +151,7 @@ public class DataManager
      * @param level
      *            The depth of the current node we're looking at
      */
-    private void binaryDumpHelper(Node<String, Point> root, int level)
+    private void binaryDumpHelper(Node<KVPair> root, int level)
     {
         if (root != null)
         {

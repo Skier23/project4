@@ -76,14 +76,16 @@ public class MemoryManager
         {
             return null;
         }
+
         
         byte[] length = new byte[4];
         
-        length[0] = data[handle  + 1];
-        length[1] = data[handle  + 2];
+        length[3] = data[handle  + 1];
+        length[2] = data[handle  + 2];
+        
+        int intLength = ByteBuffer.wrap(length).getInt();
 
-        return Arrays.copyOfRange(data, handle + 3, handle + ByteBuffer
-                .wrap(length).getInt());
+        return Arrays.copyOfRange(data, handle + 3, handle + 3 + intLength);
     }
     
 }
