@@ -17,6 +17,7 @@ public class DataManager
 {
     private BST<String, Point> binaryTree;
     private byte[] database;
+    private int[] hashTable;
     
     /**
      * Constructs a new DataManager object. Initializes the binaryTree field.
