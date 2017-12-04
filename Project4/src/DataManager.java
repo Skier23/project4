@@ -159,9 +159,7 @@ public class DataManager
             binaryDumpHelper(root.left(), level + 1);
     
             // Print out the node's data.
-            System.out.println(root.
-                    "Node has depth " + level + ", Value (" + root.key() + ", "
-                            + root.value().x + ", " + root.value().y + ")");
+            System.out.println(root.value().toString());
     
             binaryDumpHelper(root.right(), level + 1);
         }

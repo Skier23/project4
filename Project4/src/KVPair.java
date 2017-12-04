@@ -10,21 +10,21 @@ public class KVPair
 {
     private Handle key;
     private Handle value;
-    
-    
+
     /**
      * Constructs a new KVPair with specified key and value Handles
+     * 
      * @param newKey
-     *      The key Handle to assign to this KVPair
+     *            The key Handle to assign to this KVPair
      * @param newValue
-     *      The value Handle to assign to this KVPair
+     *            The value Handle to assign to this KVPair
      */
     public KVPair(Handle newKey, Handle newValue)
     {
         key = newKey;
         value = newValue;
     }
-    
+
     /**
      * @return the key Handle
      */
@@ -32,12 +32,20 @@ public class KVPair
     {
         return key;
     }
-    
+
     /**
      * @return the value Handle
      */
     public Handle getValue()
     {
         return value;
+    }
+
+    /**
+     * 
+     */
+    public String toString()
+    {
+        return "(" + key + "," + value + ")";
     }
 }

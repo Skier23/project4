@@ -7,24 +7,20 @@
  * @author Christian Dy, k4b0odls
  * @version 2017-09-24
  * 
- * @param <Key> 
- *          The key value used to locate this node
  * @param <T>
  *          The generic data type stored within the node
  */
-public class Node<Key, T>
+public class Node<T>
 {
 
     // ~ Fields
     // .................................................................
-    // Node's key value
-    private Key key;
     // Generic data held by the node
     private T value;
     // Node's left-hand child node
-    private Node<Key, T> left;
+    private Node<T> left;
     // Node's right-hand child node
-    private Node<Key, T> right;
+    private Node<T> right;
 
     // ~ Constructor
     // ............................................................
@@ -42,7 +38,7 @@ public class Node<Key, T>
      * @param rightLocal
      *            The new node's right hand sub node
      */
-    public Node(Key k, T data, Node<Key, T> leftLocal, Node<Key, T> rightLocal)
+    public Node(Key k, T data, Node<T> leftLocal, Node<T> rightLocal)
     {
         key = k;
         value = data;
@@ -116,7 +112,7 @@ public class Node<Key, T>
     /**
      * @return the node's left-hand child node
      */
-    public Node<Key, T> left()
+    public Node<T> left()
     {
         return left;
     }
@@ -128,7 +124,7 @@ public class Node<Key, T>
      * @param newLeft
      *            the node's new left-hand child node
      */
-    public void setLeft(Node<Key, T> newLeft)
+    public void setLeft(Node<T> newLeft)
     {
         left = newLeft;
     }
@@ -137,7 +133,7 @@ public class Node<Key, T>
     /**
      * @return the node's right-hand child node
      */
-    public Node<Key, T> right()
+    public Node<T> right()
     {
         return right;
     }
@@ -149,7 +145,7 @@ public class Node<Key, T>
      * @param newRight
      *            the node's new right-hand child node
      */
-    public void setRight(Node<Key, T> newRight)
+    public void setRight(Node<T> newRight)
     {
         right = newRight;
     }

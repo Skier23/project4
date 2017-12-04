@@ -64,12 +64,12 @@ public class BST<Key extends Comparable<? super Key>, T>
      * @param t
      *            The record to insert.
      */
-    public void insert(Key k, T t)
+    public void insert(T t)
     {
         /*
          * if (t == null) { System.out.println("BST insert: t is null"); }
          */
-        root = inserthelp(root, k, t, 0);
+        root = inserthelp(root, t, 0);
         nodecount++;
     }
 
@@ -81,13 +81,13 @@ public class BST<Key extends Comparable<? super Key>, T>
      *            Key value of record to remove.
      * @return true if a record was removed, false otherwise.
      */
-    public T remove(Key k)
+    public T remove(T t)
     {
         ArrayList<T> list = new ArrayList<>();
-        findhelp(root, k, list); // First find it
+        findhelp(root, t, list); // First find it
         if (!list.isEmpty())
         {
-            root = removehelp(root, k); // Now remove it
+            root = removehelp(root, t); // Now remove it
             nodecount--;
             return list.get(0);
         }
@@ -104,13 +104,13 @@ public class BST<Key extends Comparable<? super Key>, T>
      *            Key data of the record to remove.
      * @return true if a record was removed, false otherwise.
      */
-    public boolean remove(Key k, T data)
+    public boolean remove(T data)
     {
         ArrayList<T> list = new ArrayList<>();
-        findhelp(root, k, list); // First find it
+        findhelp(root, data, list); // First find it
         if (!list.isEmpty())
         {
-            root = removehelp(root, k, data); // Now remove it
+            root = removehelp(root, data); // Now remove it
             nodecount--;
         }
         return !list.isEmpty();
@@ -141,7 +141,7 @@ public class BST<Key extends Comparable<? super Key>, T>
      * 
      * @return The tree with the node removed
      */
-    private Node<Key, T> removehelp(Node<Key, T> rt, Key k)
+    private Node<Key, T> removehelp(Node<T> rt)
     {
         if (rt == null)
         {
