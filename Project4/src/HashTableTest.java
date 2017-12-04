@@ -43,40 +43,4 @@ public class HashTableTest
     {
         
     }
-
-    /**
-     * Tests the checkParams method in HashTable.
-     * 
-     * @Test - indicates that this is a test method
-     */
-    @Test
-    public void testCheckParams()
-    {
-        assertFalse(manager.checkParams(-1, 1));
-        assertFalse(manager.checkParams(1, -1));
-        assertFalse(manager.checkParams(1025, 1));
-        assertFalse(manager.checkParams(1, 1025));
-        assertFalse(manager.checkParams(1025, 1025));
-        assertTrue(manager.checkParams(1, 1));
-    }
-
-    /**
-     * Tests the dump method in HashTable.
-     * 
-     * @Test - indicates that this is a test method
-     */
-    @Test
-    public void testDump()
-    {
-        stream = new ByteArrayOutputStream();
-        System.setOut(new PrintStream(stream));
-        manager.dump();
-
-        assertEquals(stream.toString(),
-                "BST dump:\n" + "Node has depth 0, Value (null)\n"
-                        + "BST size is: 0\n" + "QuadTree Dump:\n"
-                        + "Node at 0, 0, 1024: Empty\n"
-                        + "QuadTree Size: 1 QuadTree Nodes Printed.\n");
-
-    }
 }
