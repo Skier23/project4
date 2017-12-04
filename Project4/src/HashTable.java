@@ -69,6 +69,30 @@ public class HashTable
             return temp;
         }
     }
+    public Handle find(String toFind)
+    {
+        int locationToStore = hashFunction(toFind);
+        if (hashTable[locationToStore].getString().equals(toFind))
+        {
+            Handle temp = hashTable[locationToStore];
+            return temp;
+        }
+        else
+        {
+            int offset = 1;
+            while (!hashTable[(locationToStore + (offset * offset)) % capacity].getString().equals(toFind) &&
+                    hashTable[(locationToStore + (offset * offset)) % capacity] != null)
+            {
+                offset ++;
+            }
+            if (hashTable[locationToStore + (offset * offset) % capacity] == null)
+            {
+                return null;
+            }
+            Handle temp = hashTable[locationToStore + (offset * offset) % capacity];
+            return temp;
+        }
+    }
     
     
     private int hashFunction(String toHash)
