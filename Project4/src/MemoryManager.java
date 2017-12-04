@@ -15,6 +15,10 @@ public class MemoryManager
     public int insert(String string)
     {
         byte[] stringBytes = string.getBytes();
+<<<<<<< HEAD
+=======
+        byte[] len = ByteBuffer.allocate(2).putInt(stringBytes.length).array();
+>>>>>>> branch 'master' of https://github.com/Skier23/project4.git
         
         if (size + stringBytes.length + 3 > data.length)
         {

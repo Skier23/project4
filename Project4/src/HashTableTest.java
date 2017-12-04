@@ -40,34 +40,34 @@ public class HashTableTest
     @Test
     public void testInsert()
     {
-        memManager.insert("a");
-        memManager.insert("b");
-        memManager.insert("c");
-        memManager.insert("d");
-        memManager.insert("e");
-        memManager.insert("f");
-        memManager.insert("g");
-        memManager.insert("h");
-        memManager.insert("i");
-        memManager.insert("j");
-        memManager.insert("k");
-        memManager.insert("l");
-        memManager.insert("m");
-        memManager.insert("n");
-        memManager.insert("o");
-        memManager.insert("p");
-        memManager.insert("q");
-        memManager.insert("r");
-        memManager.insert("s");
-        memManager.insert("t");
+        Handle hanA = new Handle(memManager.insert("a"), memManager);
+        Handle hanB = new Handle(memManager.insert("b"), memManager);
+        Handle hanC = new Handle(memManager.insert("c"), memManager);
+        Handle hanD = new Handle(memManager.insert("d"), memManager);
+        Handle hanE = new Handle(memManager.insert("e"), memManager);
+        Handle hanF = new Handle(memManager.insert("f"), memManager);
+        Handle hanG = new Handle(memManager.insert("g"), memManager);
+        Handle hanH = new Handle(memManager.insert("h"), memManager);
+        Handle hanI = new Handle(memManager.insert("i"), memManager);
+        Handle hanJ = new Handle(memManager.insert("j"), memManager);
+        Handle hanK = new Handle(memManager.insert("k"), memManager);
+        Handle hanL = new Handle(memManager.insert("l"), memManager);
+        Handle hanM = new Handle(memManager.insert("m"), memManager);
+        Handle hanN = new Handle(memManager.insert("n"), memManager);
+        Handle hanO = new Handle(memManager.insert("o"), memManager);
+        Handle hanP = new Handle(memManager.insert("p"), memManager);
+        Handle hanQ = new Handle(memManager.insert("q"), memManager);
+        Handle hanR = new Handle(memManager.insert("r"), memManager);
+        Handle hanS = new Handle(memManager.insert("s"), memManager);
+        Handle hanT = new Handle(memManager.insert("t"), memManager);
+        Handle hanU = new Handle(memManager.insert("u"), memManager);
+        Handle hanV = new Handle(memManager.insert("v"), memManager);
+        Handle hanW = new Handle(memManager.insert("w"), memManager);
+        Handle hanX = new Handle(memManager.insert("x"), memManager);
+        Handle hanY = new Handle(memManager.insert("y"), memManager);
+        Handle hanZ = new Handle(memManager.insert("z"), memManager);
         
-        memManager.insert("u");
-        memManager.insert("v");
-        memManager.insert("w");
-        memManager.insert("x");
-        memManager.insert("y");
-        memManager.insert("z");
-        
-        hash.insert(new Handle(, myData));
+        hash.insert(hanA);
+        assertNotNull(hash.find(hanA.getString()));
     }
 }
