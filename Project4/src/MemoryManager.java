@@ -15,7 +15,7 @@ public class MemoryManager
     public int insert(String string)
     {
         byte[] stringBytes = string.getBytes();
-        byte[] len = ByteBuffer.allocate(4).putInt(stringBytes.length).array();
+        byte[] len = ByteBuffer.allocate(2).putInt(stringBytes.length).array();
         
         if (size + stringBytes.length + 3 > data.length)
         {
