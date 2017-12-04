@@ -4,7 +4,7 @@ public class HashTable
     private Handle[] hashTable;
     private int capacity;
     private int size;
-    private static Handle tombstone = new Handle(-1);
+    private static Handle tombstone = new Handle(-1, null);
     
     public HashTable(int size)
     {
@@ -12,8 +12,9 @@ public class HashTable
         this.capacity = size;
         hashTable = new Handle[this.capacity];
     }
-    public void insert(String toHash, Handle toStore)
+    public void insert(Handle toStore)
     {
+        String toHash = toStore.getString();
         if ((size + 1) > capacity / 2)
         {
             Handle[] tempTable = hashTable;
@@ -39,9 +40,35 @@ public class HashTable
             {
                 offset ++;
             }
-            hashTable[locationToStore] = toStore;
+            hashTable[locationToStore + (offset * offset) % capacity] = toStore;
         }
-    }    
+    }  
+    public Handle remove(String toRemove)
+    {
+        int locationToStore = hashFunction(toRemove);
+        if (hashTable[locationToStore].getString().equals(toRemove))
+        {
+            Handle temp = hashTable[locationToStore];
+            hashTable[locationToStore] = tombstone;
+            return temp;
+        }
+        else
+        {
+            int offset = 1;
+            while (!hashTable[(locationToStore + (offset * offset)) % capacity].getString().equals(toRemove) &&
+                    hashTable[(locationToStore + (offset * offset)) % capacity] != null)
+            {
+                offset ++;
+            }
+            if (hashTable[locationToStore + (offset * offset) % capacity] == null)
+            {
+                return null;
+            }
+            Handle temp = hashTable[locationToStore + (offset * offset) % capacity];
+            hashTable[locationToStore + (offset * offset) % capacity] = tombstone;
+            return temp;
+        }
+    }
     
     private int hashFunction(String toHash)
     {
