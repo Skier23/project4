@@ -4,17 +4,17 @@ import java.util.Scanner;
 public class SongSearch
 {
     /**
-     * Stores the database containing song and artist info as well as the
-     * data structures used to access the database.
+     * Stores the database containing song and artist info as well as the data
+     * structures used to access the database.
      */
-    private static DataManager data;
+    private static DataManager manager;
 
     /**
-     * Executes the program with 3 arguments.  The first argument as an integer
-     * that 
+     * Executes the program with 3 arguments. The first argument as an integer
+     * that
      * 
      * @param args
-     *      The arguments to execute the program with.
+     *            The arguments to execute the program with.
      */
     public static void main(String[] args)
     {
@@ -27,7 +27,7 @@ public class SongSearch
                     + " but got " + args.length);
             return;
         }
-        
+
         if (Integer.parseInt(args[0]) <= 0)
         {
             System.out.println("Block size must be greater than zero. Given  "
@@ -49,7 +49,7 @@ public class SongSearch
             return;
         }
 
-        data = new DataManager(Integer.parseInt(args[0]),
+        manager = new DataManager(Integer.parseInt(args[0]),
                 Integer.parseInt(args[1]));
 
         // While loop breaks up the list into lines
@@ -63,7 +63,7 @@ public class SongSearch
                 // Divide up the line into an array of strings
                 String[] split = line.split("\\s+");
                 // Interpret command
-                callFunction(split);
+                execute(split, manager);
             }
 
         }
@@ -78,7 +78,7 @@ public class SongSearch
      *            A string array that contains the command and its parameters
      * @return true if the command was valid, false otherwise.
      */
-    private static boolean callFunction(String[] command)
+    public static boolean execute(String[] command, DataManager data)
     {
         switch (command[0].toLowerCase())
         {
@@ -152,10 +152,13 @@ public class SongSearch
                         case "song":
                             data.printSong();
                             return true;
+                        case "tree":
+                            data.printTree();
+                            return true;
                         default:
                             System.out.println(
-                                    "must specify whether to print all artists"
-                                            + " or songs");
+                                    "Invalid print format. Valid formats "
+                                            + "are print {artist|song|tree}");
                             return false;
                     }
                 }
@@ -178,9 +181,7 @@ public class SongSearch
                             return false;
                     }
                 }
-
                 System.out.println("invalid number of parameters for remove");
-
                 return false;
 
             default:

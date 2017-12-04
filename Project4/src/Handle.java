@@ -5,9 +5,9 @@ public class Handle implements Comparable<Handle>
 {
     
     private int handle;
-    private DataManager manager;
+    private MemoryManager manager;
     
-    public Handle(int myHandle, DataManager myData)
+    public Handle(int myHandle, MemoryManager myData)
     {
         handle = myHandle;
         manager = myData;

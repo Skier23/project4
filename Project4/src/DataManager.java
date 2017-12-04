@@ -17,8 +17,9 @@ import java.util.Arrays;
  */
 public class DataManager
 {
-    private BST<String, Point> binaryTree;
-    private byte[] database;
+    private BST<String, Point> artistTree;
+    private BST<String, Point> songTree;
+    private MemoryManager database;
     private HashTable table;
 
     
@@ -27,10 +28,9 @@ public class DataManager
      */
     public DataManager(int blocksize, int initialHashSize)
     {
-        binaryTree = new BST<String, Point>();
-        database = new byte[blocksize];
+        artistTree = new BST<String, Point>();
+        database = new MemoryManager(blocksize);
         table = new HashTable(initialHashSize);
-        
         
     }
 
@@ -105,12 +105,12 @@ public class DataManager
     public void binaryDump()
     {
         System.out.println("BST dump:");
-        if (binaryTree.root == null)
+        if (artistTree.root == null)
         {
             System.out.println("Node has depth 0, Value (null)");
         }
-        binaryDumpHelper(binaryTree.root, 0);
-        System.out.println("BST size is: " + binaryTree.size());
+        binaryDumpHelper(artistTree.root, 0);
+        System.out.println("BST size is: " + artistTree.size());
     }
     
 
@@ -148,7 +148,7 @@ public class DataManager
      */
     public int getSize()
     {
-        return binaryTree.size();
+        return artistTree.size();
     }
 
 
@@ -189,19 +189,7 @@ public class DataManager
         
     }
 
-    /**
-     * Retrieves the record stored in a specified position in memory
-     * @param handle
-     *      The location of the record to retrieve.
-     * @return
-     *      A byte array that corresponds to a record in memory
-     */
-    public byte[] getRecord(int handle)
-    {
-        int length = ByteBuffer.wrap(
-                Arrays.copyOfRange(database, handle + 1, handle + 2)).getInt();
-        return Arrays.copyOfRange(database, handle + 3, handle + length);
-    }
+
 
     public void removeSong(String string)
     {
