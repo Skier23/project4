@@ -17,14 +17,17 @@ public class DataManager
 {
     private BST<String, Point> binaryTree;
     private byte[] database;
+    private HashTable table;
     
     /**
      * Constructs a new DataManager object. Initializes the binaryTree field.
      */
-    public DataManager(int blocksize)
+    public DataManager(int blocksize, int initialHashSize)
     {
         binaryTree = new BST<String, Point>();
         database = new byte[blocksize];
+        table = new HashTable(initialHashSize);
+        
         
     }
 

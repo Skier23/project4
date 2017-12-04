@@ -2,20 +2,31 @@
 public class Handle implements Comparable<Handle>
 {
     
-    private int localHandle;
-    public Handle(int handle)
+    private int handle;
+    private DataManager manager;
+    
+    public Handle(int myHandle, DataManager myData)
     {
-        localHandle = handle;
+        handle = myHandle;
+        manager = myData;
     }
     @Override
     public int compareTo(Handle other)
     {
         // TODO Auto-generated method stub
-        return localHandle - other.getHandle();
+        
     }
     
     public int getHandle()
     {
         return localHandle;
+    }
+    
+    public String getString()
+    {
+        byte[] data = manager.getData();
+        
+        int length = data[handle + 2]
+        
     }
 }
