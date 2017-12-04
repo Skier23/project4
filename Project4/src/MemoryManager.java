@@ -42,7 +42,7 @@ public class MemoryManager
 
     public boolean delete(int handle)
     {
-        if (handle < size - 4)
+        if (handle > size - 4)
         {
             data[handle] = 0;
             return true;
@@ -72,10 +72,18 @@ public class MemoryManager
      */
     public byte[] getRecord(int handle)
     {
-        int length = ByteBuffer
-                .wrap(Arrays.copyOfRange(data, handle + 1, handle + 2))
-                .getInt();
-        return Arrays.copyOfRange(data, handle + 3, handle + length);
+        if (handle > size - 4)
+        {
+            return null;
+        }
+        
+        byte[] length = new byte[4];
+        
+        length[0] = data[handle  + 1];
+        length[1] = data[handle  + 2];
+
+        return Arrays.copyOfRange(data, handle + 3, handle + ByteBuffer
+                .wrap(length).getInt());
     }
     
 }
