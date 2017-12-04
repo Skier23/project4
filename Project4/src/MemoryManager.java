@@ -12,19 +12,28 @@ public class MemoryManager
         data = new byte[capacity];
     }
 
-    public void insert(byte[] newRecord)
+    public void insert(String string)
     {
-        if (size + newRecord.length > data.length)
+        byte[] stringBytes = string.getBytes();
+        byte[] len = ByteBuffer.allocate(4).putInt(stringBytes.length).array();
+        
+        if (size + stringBytes.length + 3 > data.length)
         {
             expand();
         }
+        
+        data[size] = 1;
+        data[size + 1] = len[0];
+        data[size + 2] = len[1];
+        
 
-        for (int i = 0; i < newRecord.length; i++)
+
+        for (int i = 0; i < stringBytes.length; i++)
         {
-            data[size + i] = newRecord[i];
+            data[size + 3 + i] = stringBytes[i];
         }
 
-        size += newRecord.length;
+        size += stringBytes.length + 3;
     }
 
     public boolean delete(int handle)

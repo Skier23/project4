@@ -80,6 +80,8 @@ public class SongSearch
      */
     public static boolean execute(String[] command, DataManager data)
     {
+        String command
+        
         switch (command[0].toLowerCase())
         {
 

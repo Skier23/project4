@@ -28,7 +28,7 @@ public class HashTableTest
     @Before
     public void setUp()
     {
-        dataManager = new DataManager(blocksize, initialHashSize)
+
         hash = new HashTable(20);
 
     }
