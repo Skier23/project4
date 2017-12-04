@@ -1,3 +1,5 @@
+import java.nio.ByteBuffer;
+import java.util.Arrays;
 
 public class Handle implements Comparable<Handle>
 {
@@ -13,20 +15,23 @@ public class Handle implements Comparable<Handle>
     @Override
     public int compareTo(Handle other)
     {
-        // TODO Auto-generated method stub
+        
+        
+        return getString().compareTo(other.getString());
         
     }
     
     public int getHandle()
     {
-        return localHandle;
+        return handle;
     }
     
     public String getString()
     {
-        byte[] data = manager.getData();
-        
-        int length = data[handle + 2]
-        
+        if (manager == null)
+        {
+            return null;
+        }
+        return new String(manager.getRecord(handle));
     }
 }

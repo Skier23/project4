@@ -1,5 +1,7 @@
 import java.awt.Point;
+import java.nio.ByteBuffer;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * DataManager creates and maintains a Binary Search Tree in the binaryTree
@@ -44,22 +46,10 @@ public class DataManager
      * @param y
      *            y coordinate of the new Point's upper right corner
      */
-    public void insert(String name, int x, int y)
+    public void insert(String artist, String name)
     {
-
-        Point point = new Point(x, y);
-
-        if (!checkParams(x, y) || !checkName(name))
-        {
-            System.out.println(
-                    "Point Rejected: (" + name + ", " + x + ", " + y + ")");
-        }
-        else
-        {
-            System.out.println(
-                    "Point Inserted: (" + name + ", " + x + ", " + y + ")");
-            binaryTree.insert(name, point);
-        }
+        
+        
     }
 
     /**
@@ -72,16 +62,9 @@ public class DataManager
      */
     public String remove(String name)
     {
-        // System.out.println("DataManager: remove name");
+        // TODO Auto-generated method stub
+        return "false";
 
-        Point p = (Point) binaryTree.remove(name);
-        if (!checkName(name) || p == null)
-        {
-            System.out.println("Point Rejected: " + name);
-            return null;
-        }
-
-        return name;
     }
 
     /**
@@ -101,28 +84,9 @@ public class DataManager
      */
     public boolean search(String name)
     {
-        if (!checkName(name))
-        {
-            System.out.println("Point Not Found: " + name);
-            return false;
-        }
-        
-        ArrayList<Point> result = binaryTree.find(name);
-        if (result.isEmpty())
-        {
-            System.out.println("Point Not Found: " + name);
-            return false;
-        }
+        // TODO Auto-generated method stub
 
-        for (int i = 0; i < result.size(); i++)
-        {
-            System.out.println("Point Found: (" + name + ", "
-                    + (int) result.get(i).x + ", "
-                    + (int) result.get(i).y + ")");
-        }
-        return true;
-        
-
+        return false;
     }
 
     /**
@@ -130,7 +94,7 @@ public class DataManager
      * the points and nodes in the QuadTree
      * Split to assist in testing
      */
-    public void dump()
+    public void printTree()
     {
         binaryDump();
 
@@ -187,45 +151,62 @@ public class DataManager
         return binaryTree.size();
     }
 
-    /**
-     * Checks to see if a given string is a valid point name. All names must
-     * begin with a letter
-     * 
-     * @param name
-     *            The name to check
-     * @return true if the name is valid, false otherwise.
-     */
-    public boolean checkName(String name)
+
+
+    public void delete(String string, String string2)
     {
-        return Character.isLetter(name.charAt(0));
+        // TODO Auto-generated method stub
+        
+    }
+
+    public void removeArtist(String string)
+    {
+        // TODO Auto-generated method stub
+        
+    }
+
+    public void printArtist()
+    {
+        // TODO Auto-generated method stub
+        
+    }
+
+    public void printSong()
+    {
+        // TODO Auto-generated method stub
+        
+    }
+
+    public void listArtist(String string)
+    {
+        // TODO Auto-generated method stub
+        
+    }
+
+    public void listSong(String string)
+    {
+        // TODO Auto-generated method stub
+        
     }
 
     /**
-     * Checks to ensure a given set of coordinates are valid. The point must fit
-     * within a 1024 x 1024 space.
-     * 
-     * @param x
-     *            X coordinate of the search region's upper left corner
-     * @param y
-     *            y coordinate of the search region's upper right corner
-     * @return true if it fits in the space, false otherwise
+     * Retrieves the record stored in a specified position in memory
+     * @param handle
+     *      The location of the record to retrieve.
+     * @return
+     *      A byte array that corresponds to a record in memory
      */
-    public boolean checkParams(int x, int y)
+    public byte[] getRecord(int handle)
     {
-        if (x < 0) // left edge is out of bounds
-        {
-            return false;
-        }
-        if (y < 0) // top edge is out of bounds
-        {
-            return false;
-        }
-        if (x > 1024) // right edge is out of bounds
-        {
-            return false;
-        }
-        return (y <= 1024); // true if bottom edge is in bounds
+        int length = ByteBuffer.wrap(
+                Arrays.copyOfRange(database, handle + 1, handle + 2)).getInt();
+        return Arrays.copyOfRange(database, handle + 3, handle + length);
+    }
 
+    public void removeSong(String string)
+    {
+        // TODO Auto-generated method stub
+        
     }
 
 }

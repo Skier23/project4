@@ -3,9 +3,19 @@ import java.util.Scanner;
 
 public class SongSearch
 {
-
+    /**
+     * Stores the database containing song and artist info as well as the
+     * data structures used to access the database.
+     */
     private static DataManager data;
 
+    /**
+     * Executes the program with 3 arguments.  The first argument as an integer
+     * that 
+     * 
+     * @param args
+     *      The arguments to execute the program with.
+     */
     public static void main(String[] args)
     {
         File inputs = null;
@@ -14,6 +24,13 @@ public class SongSearch
         if (args.length < 3)
         {
             System.out.println("Insufficient number of arguments.  Expected 3,"
+                    + " but got " + args.length);
+            return;
+        }
+        
+        if (Integer.parseInt(args[0]) <= 0)
+        {
+            System.out.println("Block size must be greater than zero. Given  "
                     + " but got " + args.length);
             return;
         }
@@ -50,8 +67,17 @@ public class SongSearch
             }
 
         }
+
+        inputList.close();
     }
 
+    /**
+     * Executes a command by calling the appropriate method in DataManager
+     * 
+     * @param command
+     *            A string array that contains the command and its parameters
+     * @return true if the command was valid, false otherwise.
+     */
     private static boolean callFunction(String[] command)
     {
         switch (command[0].toLowerCase())
@@ -143,7 +169,7 @@ public class SongSearch
                             data.listArtist(command[2]);
                             return true;
                         case "song":
-                            data.listArtist(command[2]);
+                            data.listSong(command[2]);
                             return true;
                         default:
                             System.out.println(
@@ -159,8 +185,9 @@ public class SongSearch
 
             default:
                 System.out.println("Unrecognized command!: " + command[0]);
-                break;
+
         }
+        return false;
     }
 
 }
