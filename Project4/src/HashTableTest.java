@@ -16,7 +16,7 @@ import org.junit.Test;
  */
 public class HashTableTest
 {
-    private DataManager dataManager;
+    private MemoryManager memManager;
     private HashTable hash;
     private ByteArrayOutputStream stream;
 
@@ -28,9 +28,8 @@ public class HashTableTest
     @Before
     public void setUp()
     {
-
+        memManager = new MemoryManager(40);
         hash = new HashTable(20);
-
     }
 
     /**
@@ -41,6 +40,34 @@ public class HashTableTest
     @Test
     public void testInsert()
     {
+        memManager.insert("a");
+        memManager.insert("b");
+        memManager.insert("c");
+        memManager.insert("d");
+        memManager.insert("e");
+        memManager.insert("f");
+        memManager.insert("g");
+        memManager.insert("h");
+        memManager.insert("i");
+        memManager.insert("j");
+        memManager.insert("k");
+        memManager.insert("l");
+        memManager.insert("m");
+        memManager.insert("n");
+        memManager.insert("o");
+        memManager.insert("p");
+        memManager.insert("q");
+        memManager.insert("r");
+        memManager.insert("s");
+        memManager.insert("t");
         
+        memManager.insert("u");
+        memManager.insert("v");
+        memManager.insert("w");
+        memManager.insert("x");
+        memManager.insert("y");
+        memManager.insert("z");
+        
+        hash.insert(new Handle(, myData));
     }
 }
