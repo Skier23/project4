@@ -77,5 +77,4 @@ public class MemoryManager
         return Arrays.copyOfRange(data, handle + 3, handle + length);
     }
     
-
 }

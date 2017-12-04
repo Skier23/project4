@@ -22,6 +22,7 @@ public class Node<T>
     // Node's right-hand child node
     private Node<T> right;
 
+    
     // ~ Constructor
     // ............................................................
     // ------------------------------------------------------------
