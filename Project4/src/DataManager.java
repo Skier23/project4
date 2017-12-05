@@ -51,7 +51,6 @@ public class DataManager
     public void insert(String artist, String name)
     {
         
-        
     }
 
     /**
