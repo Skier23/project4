@@ -14,9 +14,7 @@ public class HashTable
     }
     public void insert(Handle toStore)
     {
-        long k = System.currentTimeMillis();
         String toHash = toStore.getString();
-        System.out.println(toStore.getString());
         if ((size + 1) > capacity / 2)
         {
             Handle[] tempTable = hashTable;
@@ -29,18 +27,14 @@ public class HashTable
                 }
             }
         }
-        System.out.println("a " + (System.currentTimeMillis() - k));
-        int locationToStore = hashFunction(toHash, capacity);
-        System.out.println("a.25 " + (System.currentTimeMillis() - k));
+        int locationToStore = hashFunction(toHash);
         if (hashTable[locationToStore] == null || hashTable[locationToStore] == tombstone)
         {
-            System.out.println("a.5 " + (System.currentTimeMillis() - k));
             hashTable[locationToStore] = toStore;
         }
         else
         {
             int offset = 1;
-            System.out.println("a.5 " + (System.currentTimeMillis() - k));
             while (hashTable[(locationToStore + (offset * offset)) % capacity] != tombstone &&
                     hashTable[(locationToStore + (offset * offset)) % capacity] != null)
             {
@@ -48,12 +42,13 @@ public class HashTable
             }
             hashTable[locationToStore + (offset * offset) % capacity] = toStore;
         }
-        System.out.println("b " + (System.currentTimeMillis() - k));
     }  
     public Handle remove(String toRemove)
     {
-        int locationToStore = hashFunction(toRemove, capacity);
-        if (hashTable[locationToStore].getString().equals(toRemove))
+        int locationToStore = hashFunction(toRemove);
+        if (hashTable[locationToStore] != null && 
+                hashTable[locationToStore] != tombstone &&
+                hashTable[locationToStore].getString().equals(toRemove))
         {
             Handle temp = hashTable[locationToStore];
             hashTable[locationToStore] = tombstone;
@@ -62,8 +57,10 @@ public class HashTable
         else
         {
             int offset = 1;
-            while (!hashTable[(locationToStore + (offset * offset)) % capacity].getString().equals(toRemove) &&
-                    hashTable[(locationToStore + (offset * offset)) % capacity] != null)
+            while (hashTable[(locationToStore + (offset * offset)) % capacity] != null && 
+                    hashTable[locationToStore] != tombstone &&
+                    !hashTable[(locationToStore + (offset * offset)) % 
+                               capacity].getString().equals(toRemove))
             {
                 offset ++;
             }
@@ -78,8 +75,10 @@ public class HashTable
     }
     public Handle find(String toFind)
     {
-        int locationToStore = hashFunction(toFind, capacity);
-        if (hashTable[locationToStore].getString().equals(toFind))
+        int locationToStore = hashFunction(toFind);
+        if (hashTable[locationToStore] != null && 
+                hashTable[locationToStore] != tombstone &&
+                hashTable[locationToStore].getString().equals(toFind))
         {
             Handle temp = hashTable[locationToStore];
             return temp;
@@ -87,8 +86,10 @@ public class HashTable
         else
         {
             int offset = 1;
-            while (!hashTable[(locationToStore + (offset * offset)) % capacity].getString().equals(toFind) &&
-                    hashTable[(locationToStore + (offset * offset)) % capacity] != null)
+            while (hashTable[(locationToStore + (offset * offset)) % capacity] != null && 
+                    hashTable[locationToStore] != tombstone &&
+                    !hashTable[(locationToStore + (offset * offset)) % 
+                               capacity].getString().equals(toFind))
             {
                 offset ++;
             }
@@ -102,7 +103,7 @@ public class HashTable
     }
     
     
-    public int hashFunction(String toHash, int size)
+    private int hashFunction(String toHash)
     {
         //System.out.println(toHash);
         int intLength = toHash.length() / 4;
@@ -124,6 +125,6 @@ public class HashTable
             sum += c[k] * mult;
             mult *= 256;
         }
-        return (int)(Math.abs(sum) % size);
+        return (int)(Math.abs(sum) % capacity);
     }
 }
