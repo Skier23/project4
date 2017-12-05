@@ -30,6 +30,7 @@ public class DataManager
         database = new MemoryManager(blocksize);
         artistTable = new HashTable(initialHashSize);
         songTable = new HashTable(initialHashSize);
+        
     }
 
     /**
