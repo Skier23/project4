@@ -66,6 +66,7 @@ public class HashTableTest
         Handle hanX = new Handle(memManager.insert("x"), memManager);
         Handle hanY = new Handle(memManager.insert("y"), memManager);
         Handle hanZ = new Handle(memManager.insert("z"), memManager);
+        Handle hanAA = new Handle(memManager.insert("ai"), memManager);
         
         hash.insert(hanA);
         assertEquals(hash.find(hanA.getString()), hanA);
@@ -85,14 +86,20 @@ public class HashTableTest
         assertEquals(hash.find(hanH.getString()), hanH);
         hash.insert(hanI);
         assertEquals(hash.find(hanI.getString()), hanI);
+        hash.remove("i");
+        hash.insert(hanI);
         hash.insert(hanJ);
         assertEquals(hash.find(hanJ.getString()), hanJ);
-        hash.remove(hanJ.getString());
-        assertNull(hash.find(hanJ.getString()));
+        hash.remove("j");
+        hash.insert(hanAA);
+        hash.insert(hanL);
+        //hash.remove(hanJ.getString());
+        //assertNull(hash.find(hanJ.getString()));
         hash.insert(hanK);
         assertEquals(hash.find(hanK.getString()), hanK);
-        //hash.remove("a");
-        assertEquals(hash.find("a"), hanA);
+        hash.remove("a");
+        //System.out.println(hash.find("a").getString());
+        assertNull(hash.find("a"));
         
         
     }
