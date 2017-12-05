@@ -4,12 +4,6 @@ import java.util.Scanner;
 public class SongSearch
 {
     /**
-     * Stores the database containing song and artist info as well as the data
-     * structures used to access the database.
-     */
-    private static DataManager manager;
-
-    /**
      * Executes the program with 3 arguments. The first argument as an integer
      * that
      * 
@@ -18,38 +12,20 @@ public class SongSearch
      */
     public static void main(String[] args)
     {
-        File inputs = null;
-        Scanner inputList = null;
-
-        if (args.length < 3)
+        if (!checkArgs(args))
         {
-            System.out.println("Insufficient number of arguments.  Expected 3,"
-                    + " but got " + args.length);
             return;
         }
+        
+        File inputs =  new File(args[2]);
+        Scanner inputList = makeScanner(inputs);
 
-        if (Integer.parseInt(args[0]) <= 0)
+        if (inputList == null)
         {
-            System.out.println("Block size must be greater than zero. Given  "
-                    + " but got " + args.length);
             return;
         }
-
-        inputs = new File(args[2]);
-        try
-        {
-            // No file name, defaulting to SyntaxTest.txt
-            inputList = new Scanner(inputs);
-
-        }
-        catch (Exception e)
-        {
-            // Exit if it can't find the specified command line
-            System.out.println("Command list not found, exiting program");
-            return;
-        }
-
-        manager = new DataManager(Integer.parseInt(args[0]),
+        
+        DataManager manager = new DataManager(Integer.parseInt(args[0]),
                 Integer.parseInt(args[1]));
 
         // While loop breaks up the list into lines
@@ -68,8 +44,64 @@ public class SongSearch
         }
 
         inputList.close();
+    
+    }
+    
+    /**
+     * Checks to see if we are given the correct number of arguments and that
+     * the initial sizes are not 0
+     * @param args
+     *      Arguments for main that need to be checked
+     * @return true if the params are valid, false otherwise
+     */
+    public static boolean checkArgs(String[] args)
+    {
+        if (args.length < 3)
+        {
+            System.out.println("Insufficient number of arguments.  Expected 3,"
+                    + " but got " + args.length);
+            return false;
+        }
+
+        if (Integer.parseInt(args[0]) <= 0)
+        {
+            System.out.println("Initial block size must be greater than zero.");
+            return false;
+        }
+        
+        if (Integer.parseInt(args[1]) <= 0)
+        {
+            System.out.println("Initial hash table size must be greater than "
+                    + "zero.");
+            return false;
+        }
+        
+        return true;
     }
 
+    /**
+     * Attempts to create a Scanner from a given file
+     * @param file
+     *      The File to make a Scanner from
+     * @return the Scanner created
+     */
+    public static Scanner makeScanner(File file)
+    {
+
+        try
+        {
+            // No file name, defaulting to SyntaxTest.txt
+            return new Scanner(file);
+
+        }
+        catch (Exception e)
+        {
+            // Exit if it can't find the specified command line
+            System.out.println("Command list not found, exiting program");
+            return null;
+        }
+    }
+    
     /**
      * Executes a command by calling the appropriate method in DataManager
      * 
@@ -80,8 +112,8 @@ public class SongSearch
     public static boolean execute(String input, DataManager data)
     {
         // Divide up the command into an array of strings
-        String[] command = input.split("\\s+");
-        
+        String[] command = input.split("\\s+", 2);
+
         switch (command[0].toLowerCase())
         {
 
@@ -121,15 +153,22 @@ public class SongSearch
                 return false;
 
             case "remove":
-                if (command.length == 3)
+                if (command.length == 2)
                 {
-                    switch (command[1].toLowerCase())
+                    String[] params = command[1].split("\\s+", 2);
+                    if (params.length != 2)
+                    {
+                        System.out.println("invalid number of parameters for"
+                                + " remove");
+                        return false;
+                    }
+                    switch (params[0].toLowerCase())
                     {
                         case "artist":
-                            data.removeArtist(command[2]);
+                            data.removeArtist(params[1]);
                             return true;
                         case "song":
-                            data.removeSong(command[2]);
+                            data.removeSong(params[1]);
                             return true;
                         default:
                             System.out.println(
@@ -141,6 +180,35 @@ public class SongSearch
 
                 System.out.println("invalid number of parameters for remove");
 
+                return false;
+
+            case "list":
+                if (command.length == 2)
+                {
+                    String[] params = command[1].split("\\s+", 2);
+                    if (params.length != 2)
+                    {
+                        System.out.println("invalid number of parameters for"
+                                + " list");
+                        return false;
+                    }
+                    switch (params[0].toLowerCase())
+                    {
+                        case "artist":
+                            data.listArtist(params[1]);
+                            return true;
+                        case "song":
+                            data.listSong(params[1]);
+                            return true;
+                        default:
+                            System.out.println("Must specify whether to list"
+                                    + " all songs from an artist or all "
+                                    + "artists for a song");
+                            return false;
+                    }
+                }
+
+                System.out.println("invalid number of parameters for list");
                 return false;
 
             case "print":
@@ -164,27 +232,6 @@ public class SongSearch
                             return false;
                     }
                 }
-                break;
-            case "list":
-                if (command.length == 3)
-                {
-                    switch (command[1].toLowerCase())
-                    {
-                        case "artist":
-                            data.listArtist(command[2]);
-                            return true;
-                        case "song":
-                            data.listSong(command[2]);
-                            return true;
-                        default:
-                            System.out.println(
-                                    "must specify whether to remove an artist"
-                                            + " or song");
-                            return false;
-                    }
-                }
-                System.out.println("invalid number of parameters for remove");
-                return false;
 
             default:
                 System.out.println("Unrecognized command!: " + command[0]);

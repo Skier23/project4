@@ -1,7 +1,4 @@
 import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.NoSuchElementException;
-import java.util.Stack;
 
 /**
  * BST is a Binary Search Tree data structure holding data in nodes sorted in
@@ -12,7 +9,7 @@ import java.util.Stack;
  * @author Tyler Bench, ski23
  * @author Christian Dy, k4b0odls
  * @version 2017-09-24
-
+ * 
  * @param <T>
  *            The generic data to be held within a node.
  * 
@@ -22,7 +19,7 @@ import java.util.Stack;
  * 
  */
 public class BST<T extends Comparable<? super T>>
-        implements Iterable<Node<T>>
+
 {
     /**
      * @param root
@@ -56,47 +53,70 @@ public class BST<T extends Comparable<? super T>>
 
     /**
      * Insert a record into the tree at the appropriate location. This method
-     * calls a recursive helper method and increments the node count.
+     * calls a recursive helper method and increments the node count. Rejects
+     * any record that already exists in the tree
      * 
      * @param k
      *            Key value of the record.
      * @param t
      *            The record to insert.
+     * @return true if the record was successfully inserted, false if it already
+     *         existed in the tree
      */
-    public void insert(T t)
+    public boolean insert(T t)
     {
-        /*
-         * if (t == null) { System.out.println("BST insert: t is null"); }
-         */
+        if (findhelp(root, t) != null)
+        {
+            return false;
+        }
         root = inserthelp(root, t, 0);
         nodecount++;
+        return true;
     }
 
     /**
      * Remove a record from the tree. This method checks to ensure calls a
      * recursive helper method and increments the node count.
      * 
-     * @param k
-     *            Key value of record to remove.
-     * @return true if a record was removed, false otherwise.
+     * @param t
+     *            the value to remove.
+     * @return the value remove
      */
     public T remove(T t)
     {
+
+        T found = findhelp(root, t); // First find it
+        if (found != null)
+        {
+
+            root = removehelp(root, t, found); // Now remove it
+            nodecount--;
+
+        }
+        return found;
+    }
+
+    public ArrayList<T> removeAll(T t)
+    {
         ArrayList<T> list = new ArrayList<>();
         findhelp(root, t, list); // First find it
-        if (!list.isEmpty())
+
+        for (int i = 0; i < list.size(); i++)
         {
-            root = removehelp(root, t); // Now remove it
+            root = removehelp(root, t, null); // Now remove it
             nodecount--;
-            return list.get(0);
         }
-        return null;
+        return list;
     }
 
     /**
-     * @return Record with key value k, null if none exist.
-     * @param k
-     *            The key value to find.
+     * Returns a list of all values that correspond to a given key. If no such
+     * value exists, list is empty.
+     * 
+     * @param t
+     *            An object containing the key to look for
+     * @return An ArrayList containing all records that correspond to the key.
+     * 
      */
     public ArrayList<T> find(T t)
     {
@@ -114,26 +134,29 @@ public class BST<T extends Comparable<? super T>>
     }
 
     /**
-     * Recursive helper method to remove a node with value T
+     * Recursive helper method to remove a node with value t
      * 
+     * @param t
+     *            The value to remove
+     * @param rt
+     *            The current node to search
      * @return The tree with the node removed
      */
-    private Node<T> removehelp(Node<T> rt, T t)
+    private Node<T> removehelp(Node<T> rt, T t, T found)
     {
-        if (rt == null)
-        {
-            return null;
-        }
+
         if (rt.value().compareTo(t) > 0) // k is left of rt
         {
-            rt.setLeft(removehelp(rt.left(), t));
+            rt.setLeft(removehelp(rt.left(), t, found));
         }
         else if (rt.value().compareTo(t) < 0) // k is right of rt
         {
-            rt.setRight(removehelp(rt.right(), t));
+            rt.setRight(removehelp(rt.right(), t, found));
         }
         else
         { // Found it
+            found = rt.value();
+
             if (rt.left() == null) // left is empty, go right
             {
                 return rt.right();
@@ -148,11 +171,45 @@ public class BST<T extends Comparable<? super T>>
                 rt.setValue(temp.value());
                 rt.setRight(deletemin(rt.right()));
             }
+
         }
         return rt;
     }
 
- 
+    /**
+     * A recursive helper method used to find the first node corresponding to a
+     * given key and provide its value.
+     * 
+     * @param rt
+     *            The node to search in each iteration of recursion
+     * @param k
+     *            The key value to search for
+     * @param result
+     *            An ArrayList containing the values of all nodes corresponding
+     *            to the given key
+     */
+    private T findhelp(Node<T> rt, T t)
+    {
+        if (rt == null)
+        {
+            return null;
+        }
+        if (rt.value().compareTo(t) > 0)
+        {
+
+            return findhelp(rt.left(), t);
+        }
+        else if (rt.value().compareTo(t) == 0)
+        {
+            return rt.value();
+
+        }
+        else
+        {
+
+            return findhelp(rt.right(), t);
+        }
+    }
 
     /**
      * A recursive helper method used to find all nodes corresponding to a given
@@ -215,11 +272,7 @@ public class BST<T extends Comparable<? super T>>
     {
         if (rt == null)
         {
-            /*
-             * System.out.println(
-             * "BST inserthelp: this node is null, adding node at level " +
-             * level);
-             */
+            //Null node, add here
             return new Node<T>(t);
         }
         if (rt.value().compareTo(t) > 0)
@@ -227,29 +280,14 @@ public class BST<T extends Comparable<? super T>>
             // System.out.println("turning left");
             rt.setLeft(inserthelp(rt.left(), t, level + 1));
         }
-        else if (rt.value().compareTo(t) < 0)
+        else
         {
             // System.out.println("turning right");
             rt.setRight(inserthelp(rt.right(), t, level + 1));
         }
-        else // duplicate node, adding new node to its right
-        {
-            // System.out.println("duplicate, turning right");
-            // The right node is already occupied
-            if (rt.right() != null)
-            {
-                Node<T> temp = new Node<T>(t, null, rt.right());
-                rt.setRight(temp);
-                /*
-                 * System.out.println(
-                 * "BST inserthelp: Duplicate node already has node at " +
-                 * "right, adding node at level " + level + 1);
-                 */
-                return rt;
-            }
-            rt.setRight(inserthelp(rt.right(), t, level + 1));
-        }
+
         return rt;
+  
     }
 
     /**
@@ -281,108 +319,6 @@ public class BST<T extends Comparable<? super T>>
         }
         rt.setLeft(deletemin(rt.left()));
         return rt;
-    }
-
-    /**
-     * Returns the iterator for the BST tree
-     * 
-     * @return a new Node iterator for this tree
-     */
-    @Override
-    public Iterator<Node<T>> iterator()
-    {
-        return new PreBSTIterator(root);
-    }
-
-    /**
-     * Iterates over the nodes in the BST
-     * 
-     */
-    private class PreBSTIterator implements Iterator<Node<T>>
-    {
-        // The current node the iterator is on
-        private Node<T> thisNode;
-        // The stack of nodes representing the path to the currentNode
-        private Stack<Node<T>> treeStack;
-
-        /**
-         * Creates an iterator for the binary search tree with the given root
-         * 
-         * @param root
-         *            the root of the BST
-         */
-        public PreBSTIterator(Node<T> root)
-        {
-            thisNode = root;
-            treeStack = new Stack<>();
-        }
-
-        /**
-         * Recursive method that removes and returns the left-most node in the
-         * tree.
-         * 
-         * @return the next entry in the iterator if such entry exists
-         * @throws NoSuchElementException
-         *             if there is no next element. Avoid by using the hasNext()
-         *             method before this method.
-         */
-        @Override
-        public Node<T> next()
-        {
-            if (!hasNext())
-            {
-                throw new NoSuchElementException();
-            }
-            Node<T> currentNode = thisNode;
-            advance();
-            return currentNode;
-        }
-        
-        /**
-         * Checks if there is a next Node in the iterator
-         * 
-         * @return true if there is indeed another Node in the iterator.
-         */
-        @Override
-        public boolean hasNext()
-        {
-            return thisNode != null;
-        }
-
-        /**
-         * Advances the iterator to the next node
-         * 
-         * @return true if successfully advanced the iterator
-         */
-        private boolean advance()
-        {
-
-            boolean result = true;
-
-            if (thisNode.left() != null)
-            {
-                if (thisNode.right() != null)
-                {
-                    treeStack.push(thisNode.right());
-                }
-                thisNode = thisNode.left();
-            }
-            else if (thisNode.right() != null)
-            {
-                thisNode = thisNode.right();
-            }
-            else if (treeStack.size() == 0)
-            {
-                thisNode = null;
-                result = false;
-            }
-            else
-            {
-                thisNode = treeStack.pop();
-            }
-
-            return result;
-        }
     }
 
 }

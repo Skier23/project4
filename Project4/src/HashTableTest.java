@@ -53,27 +53,27 @@ public class HashTableTest
         Handle hanAI = new Handle(memManager.insert("ai"), memManager);
         
         hash.insert(hanA);
-        assertEquals(hash.find(hanA.getString()), hanA);
+        assertEquals(hash.find(hanA.toString()), hanA);
         hash.insert(hanB);
-        assertEquals(hash.find(hanB.getString()), hanB);
+        assertEquals(hash.find(hanB.toString()), hanB);
         hash.insert(hanC);
-        assertEquals(hash.find(hanC.getString()), hanC);
+        assertEquals(hash.find(hanC.toString()), hanC);
         hash.insert(hanD);
-        assertEquals(hash.find(hanD.getString()), hanD);
+        assertEquals(hash.find(hanD.toString()), hanD);
         hash.insert(hanE);
-        assertEquals(hash.find(hanE.getString()), hanE);
+        assertEquals(hash.find(hanE.toString()), hanE);
         hash.insert(hanF);
-        assertEquals(hash.find(hanF.getString()), hanF);
+        assertEquals(hash.find(hanF.toString()), hanF);
         hash.insert(hanG);
-        assertEquals(hash.find(hanG.getString()), hanG);
+        assertEquals(hash.find(hanG.toString()), hanG);
         hash.insert(hanH);
-        assertEquals(hash.find(hanH.getString()), hanH);
+        assertEquals(hash.find(hanH.toString()), hanH);
         hash.insert(hanI);
-        assertEquals(hash.find(hanI.getString()), hanI);
+        assertEquals(hash.find(hanI.toString()), hanI);
         hash.remove("i");
         hash.insert(hanI);
         hash.insert(hanJ);
-        assertEquals(hash.find(hanJ.getString()), hanJ);
+        assertEquals(hash.find(hanJ.toString()), hanJ);
         hash.remove("j");
         hash.insert(hanAI);
         hash.remove("ai");
@@ -84,13 +84,13 @@ public class HashTableTest
         //hash.remove(hanJ.getString());
         //assertNull(hash.find(hanJ.getString()));
         hash.insert(hanK);
-        assertEquals(hash.find(hanK.getString()), hanK);
+        assertEquals(hash.find(hanK.toString()), hanK);
         hash.remove("a");
         //System.out.println(hash.find("a").getString());
         assertNull(hash.find("a"));
         hash.insert(hanM);
         hash.insert(hanN);
-        assertEquals(hash.find(hanN.getString()), hanN);
+        assertEquals(hash.find(hanN.toString()), hanN);
         
     }
     /**

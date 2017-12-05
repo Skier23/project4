@@ -6,6 +6,7 @@ public class Handle implements Comparable<Handle>
     
     private int handle;
     private MemoryManager manager;
+    public static Handle search = new Handle(-1, null);
     
     public Handle(int myHandle, MemoryManager myData)
     {
@@ -17,7 +18,7 @@ public class Handle implements Comparable<Handle>
         return handle;
     }
     
-    public String getString()
+    public String toString()
     {
         if (manager == null)
         {
@@ -29,7 +30,7 @@ public class Handle implements Comparable<Handle>
     public int compareTo(Handle other)
     {
         
-        return getString().compareTo(other.getString());
+        return handle - other.getHandle();
         
     }
 }

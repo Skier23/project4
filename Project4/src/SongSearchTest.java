@@ -12,6 +12,9 @@ public class SongSearchTest
         
     }
 
+    /**
+     * Tests the execute method with a variety of 
+     */
     @Test
     public void testExecute()
     {
@@ -19,7 +22,56 @@ public class SongSearchTest
         
         assertFalse(SongSearch.execute("nothing", data));
         
-        assertFalse(SongSearch.execute("print face", data));
+        assertFalse(SongSearch.execute("insert", data));
+        assertFalse(SongSearch.execute("insert fail", data));
+        
+        assertFalse(SongSearch.execute("insert Journey Faithfully", data));
+        assertFalse(SongSearch.execute("insert Heart<SEP>Magic<SEP>Man", data));
+        
+        assertFalse(SongSearch.execute("insert <SEP>", data));
+        assertTrue(SongSearch.execute("insert Journey<SEP>Faithfully", data));
+        assertTrue(SongSearch.execute("insert Fleetwood Mac<SEP>Rhiannon",
+                data));
+        assertTrue(SongSearch.execute("insert Queen<SEP>Killer Queen", data));
+        assertTrue(SongSearch.execute("insert Creedence Clearwater Revival<SEP>"
+                + "Fortunate Son", data));
+        assertTrue(SongSearch.execute("insert Heart<SEP>MagicMan", data));
+        
+        assertFalse(SongSearch.execute("delete", data));
+        assertFalse(SongSearch.execute("delete fail", data));
+        assertFalse(SongSearch.execute("delete fail fail", data));
+        assertFalse(SongSearch.execute("delete BostonPeace", data));
+        
+        assertFalse(SongSearch.execute("delete <SEP>", data));
+        assertFalse(SongSearch.execute("delete Pink<SEP>Floyd<SEP>Money", 
+                data));
+        
+        assertTrue(SongSearch.execute("delete Journey<SEP>Faithfully", data));
+        assertTrue(SongSearch.execute("delete Fleetwood Mac<SEP>Rhiannon",
+                data));
+        assertTrue(SongSearch.execute("delete Queen<SEP>Killer Queen", data));
+        assertTrue(SongSearch.execute("delete Creedence Clearwater Revival<SEP>"
+                + "Fortunate Son", data));
+        assertTrue(SongSearch.execute("delete Heart<SEP>MagicMan", data));
+        
+        assertFalse(SongSearch.execute("remove", data));
+        assertFalse(SongSearch.execute("remove fail", data));
+        assertFalse(SongSearch.execute("remove fail fail", data));
+        assertFalse(SongSearch.execute("remove artist", data));
+        assertFalse(SongSearch.execute("remove song", data));
+        assertTrue(SongSearch.execute("remove artist Bad Company", data));
+        assertTrue(SongSearch.execute("remove song Bad Company", data));
+
+        assertFalse(SongSearch.execute("list", data));
+        assertFalse(SongSearch.execute("list fail", data));
+        assertFalse(SongSearch.execute("list fail fail", data));
+        assertFalse(SongSearch.execute("list artist", data));
+        assertFalse(SongSearch.execute("list song", data));
+        assertTrue(SongSearch.execute("list artist Bad Company", data));
+        assertTrue(SongSearch.execute("list song Bad Company", data));
+        
+        assertFalse(SongSearch.execute("print", data));
+        assertFalse(SongSearch.execute("print nothing", data));
         assertTrue(SongSearch.execute("print artist", data));
         assertTrue(SongSearch.execute("print song", data));
         assertTrue(SongSearch.execute("print tree", data));

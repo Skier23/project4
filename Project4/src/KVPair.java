@@ -52,12 +52,25 @@ public class KVPair implements Comparable<KVPair>
     @Override
     public int compareTo(KVPair other)
     {
+        
+        
         int keyCompare = key.compareTo(other.getKey());
-        if (keyCompare == 0)
+        if (value == Handle.search)
         {
-            return value.compareTo(other.getValue());
+            return keyCompare;
         }
-        return keyCompare;
+        if (other.getValue() == Handle.search)
+        {
+            return keyCompare;
+        }
+        
+        if ((keyCompare != 0))
+        {
+            return keyCompare;
+        }
+
+        
+        return value.compareTo(other.getValue());
     }
 
 }
