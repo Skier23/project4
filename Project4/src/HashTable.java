@@ -72,12 +72,12 @@ public class HashTable
             {
                 offset ++;
             }
-            if (hashTable[locationToStore + (offset * offset) % capacity] == null)
+            if (hashTable[(locationToStore + (offset * offset)) % capacity] == null)
             {
                 return null;
             }
-            Handle temp = hashTable[locationToStore + (offset * offset) % capacity];
-            hashTable[locationToStore + (offset * offset) % capacity] = tombstone;
+            Handle temp = hashTable[(locationToStore + (offset * offset)) % capacity];
+            hashTable[(locationToStore + (offset * offset)) % capacity] = tombstone;
             size--;
             return temp;
         }
@@ -105,11 +105,11 @@ public class HashTable
             {
                 offset ++;
             }
-            if (hashTable[locationToStore + (offset * offset) % capacity] == null)
+            if (hashTable[(locationToStore + (offset * offset)) % capacity] == null)
             {
                 return null;
             }
-            Handle temp = hashTable[locationToStore + (offset * offset) % capacity];
+            Handle temp = hashTable[(locationToStore + (offset * offset)) % capacity];
             return temp;
         }
     }
