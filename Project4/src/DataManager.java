@@ -1,3 +1,4 @@
+import org.junit.experimental.theories.Theories;
 
 /**
  * DataManager creates and maintains a Binary Search Tree in the binaryTree
@@ -38,16 +39,47 @@ public class DataManager
      * dimensions or ones that exceed the bounds of a 1024 x 1024 space. Also
      * rejects names that don't start with a letter of the alphabet.
      * 
-     * @param name
+     * @param song
      *            Name of the Point to insert
      * @param x
      *            X coordinate of the new Point's upper left corner
      * @param y
      *            y coordinate of the new Point's upper right corner
      */
-    public void insert(String artist, String name)
+    public void insert(String artist, String song)
     {
-        
+        Handle artistHandle = artistTable.find(artist);
+        Handle songHandle = songTable.find(song);
+        if (artistHandle == null)
+        {
+           artistHandle = new Handle(database.insert(artist), database);
+           System.out.println("|" + artist + "| is added to the Artist database.");
+           artistTable.insert(artistHandle);
+        }
+        if (songHandle == null)
+        {
+            songHandle = new Handle(database.insert(song), database);
+            System.out.println("|" + song + "| is added to the Song database.");
+            songTable.insert(songHandle);
+        }
+        KVPair pair = new KVPair(artistHandle, songHandle);
+        if (artistTree.find(pair).isEmpty())
+        {
+            artistTree.insert(pair);
+            System.out.println("The KVPair " + pair.getString() + 
+                    "," + pair.toString() + "is added to the tree.");
+            KVPair pair2 = new KVPair(songHandle, artistHandle);
+
+            songTree.insert(pair2);
+            System.out.println("The KVPair " + pair2.getString() + 
+                    "," + pair2.toString() + "is added to the tree.");
+            
+            
+        }
+        else 
+        {
+            
+        }
     }
 
     /**

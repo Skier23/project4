@@ -24,6 +24,15 @@ public class Handle implements Comparable<Handle>
         {
             return null;
         }
+        return handle + "";
+    }
+    
+    public String getString()
+    {
+        if (manager == null)
+        {
+            return null;
+        }
         return new String(manager.getRecord(handle));
     }
     @Override
