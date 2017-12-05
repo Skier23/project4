@@ -20,7 +20,8 @@ public class DataManager
     private BST<KVPair> artistTree;
     private BST<KVPair> songTree;
     private MemoryManager database;
-    private HashTable table;
+    private HashTable artistTable;
+    private HashTable songTable;
 
     
     /**
@@ -29,9 +30,10 @@ public class DataManager
     public DataManager(int blocksize, int initialHashSize)
     {
         artistTree = new BST<KVPair>();
+        songTree = new BST<KVPair>();
         database = new MemoryManager(blocksize);
-        table = new HashTable(initialHashSize);
-        
+        artistTable = new HashTable(initialHashSize);
+        songTable = new HashTable(initialHashSize);
     }
 
     /**
