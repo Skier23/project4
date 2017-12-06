@@ -96,19 +96,6 @@ public class BST<T extends Comparable<? super T>>
         return found;
     }
 
-    public ArrayList<T> removeAll(T t)
-    {
-        ArrayList<T> list = new ArrayList<>();
-        findhelp(root, t, list); // First find it
-
-        for (int i = 0; i < list.size(); i++)
-        {
-            root = removehelp(root, t, null); // Now remove it
-            nodecount--;
-        }
-        return list;
-    }
-
     /**
      * Returns a list of all values that correspond to a given key. If no such
      * value exists, list is empty.

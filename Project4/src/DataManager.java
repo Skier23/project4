@@ -241,8 +241,8 @@ public class DataManager
         {
             if (artists[i] != HashTable.tombstone && artists[i] != null)
             {
-                System.out.println("|" + artists[i].getString() + "| " +
-                        artists[i].toString());
+                System.out.println("|" + artists[i].getString() + "| "
+                        + artists[i].toString());
                 size++;
             }
         }
@@ -258,8 +258,8 @@ public class DataManager
         {
             if (songs[i] != HashTable.tombstone && songs[i] != null)
             {
-                System.out.println("|" + songs[i].getString() + "| " +
-                        songs[i].toString());
+                System.out.println("|" + songs[i].getString() + "| "
+                        + songs[i].toString());
                 size++;
             }
         }
@@ -270,17 +270,21 @@ public class DataManager
     /**
      * Prints out a list of all Points within the BST, followed by a list of the
      * points and nodes in the QuadTree Split to assist in testing
+     * 
+     * @return the number of entries printed.
      */
-    public void printTree()
+    public int printTree()
     {
-
+        int printed = 0;
         System.out.println("Printing artist tree:");
 
-        binaryDumpHelper(artistTree.root, 0);
+        printed += binaryDumpHelper(artistTree.root, 0);
 
         System.out.println("Printing song tree:");
 
-        binaryDumpHelper(songTree.root, 0);
+        printed += binaryDumpHelper(songTree.root, 0);
+
+        return printed;
 
     }
 
@@ -293,13 +297,15 @@ public class DataManager
      *            The current node we are looking at
      * @param level
      *            The depth of the current node we're looking at
+     * @return the number of entries printed.
      */
-    private void binaryDumpHelper(Node<KVPair> root, int level)
+    private int binaryDumpHelper(Node<KVPair> root, int level)
     {
+        int printed = 0;
         if (root != null)
         {
 
-            binaryDumpHelper(root.left(), level + 1);
+            printed += binaryDumpHelper(root.left(), level + 1);
 
             // Print out the node's data.
             if (level > 0)
@@ -311,18 +317,29 @@ public class DataManager
             {
                 System.out.println(root.value().toString());
             }
-            binaryDumpHelper(root.right(), level + 1);
+
+            printed++;
+
+            printed += binaryDumpHelper(root.right(), level + 1);
         }
+        return printed;
     }
 
-    public void listArtist(String artist)
+    /**
+     * Prints a list of all songs performed by an artist in the database
+     * 
+     * @param artist
+     *            The artists whose songs are to be printed
+     * @return the number of songs printed.
+     */
+    public int listArtist(String artist)
     {
         Handle artistHandle = artistTable.find(artist);
         if (artistHandle == null)
         {
             System.out.println(
                     "|" + artist + "| does not exist in the Artist database.");
-            return;
+            return 0;
         }
 
         KVPair findMe = new KVPair(artistHandle, Handle.search);
@@ -335,16 +352,26 @@ public class DataManager
 
         System.out.println("total songs: " + list.size());
 
+        return list.size();
+
     }
 
-    public void listSong(String song)
+    /**
+     * Prints a list of all artists that have performed a particular song in the
+     * database
+     * 
+     * @param song
+     *            The song whose artists we want printed
+     * @return the number of songs printed.
+     */
+    public int listSong(String song)
     {
         Handle songHandle = artistTable.find(song);
         if (songHandle == null)
         {
             System.out.println(
                     "|" + song + "| does not exist in the Artist database.");
-            return;
+            return 0;
         }
 
         KVPair findMe = new KVPair(songHandle, Handle.search);
@@ -356,6 +383,7 @@ public class DataManager
         }
 
         System.out.println("total songs: " + list.size());
+        return list.size();
     }
 
 }

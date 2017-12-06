@@ -119,39 +119,7 @@ public class BSTTest
             bst.insert(pair.get(i));
             pair.remove(i);
         }
-        while (pair.size() > 10)
-        {
-            int i = random.nextInt(20);
-            bst.insert(pair.get(i));
-            pair.remove(i);
-        }
-       
-        for (int i = 30; i < 40; i++)
-        {
-            bst.insert(new KVPair(new Handle(10, manager), handle.get(i)));
-        }
-        
-        ArrayList<KVPair> list;
-        for (int i = 20; i < backup.size() - 20; i++)
-        {
-            list = bst.find(backup.get(i));
-            assertTrue(list.isEmpty());
-            assertTrue(bst.removeAll(backup.get(i)).isEmpty());
-        }
-        
-        list = bst.find(new KVPair(new Handle(10, manager),
-                Handle.search));
-        
-        assertEquals(list.size(), 10);
-        
-        for (int i = 0; i < 10; i++)
-        {
-            assertEquals(list.get(i).getKey().getHandle(), 10);
-        }
-        KVPair removeMe = new KVPair(new Handle(10, manager),
-                Handle.search);
-        
-        assertEquals(bst.removeAll(removeMe).size(), 10);
+
         
     }
 
