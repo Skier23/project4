@@ -261,7 +261,8 @@ public class DataManager
         
         for (KVPair pair:list)
         {
-            
+            System.out.println(
+                    "|" + pair.getString() + "|");
         }
         
         System.out.println("total songs: " + list.size());
@@ -270,8 +271,24 @@ public class DataManager
 
     public void listSong(String song)
     {
-        // TODO Auto-generated method stub
-
+        Handle songHandle = artistTable.find(song);
+        if (songHandle == null)
+        {
+            System.out.println(
+                    "|" + song + "| does not exist in the Artist database.");
+            return;
+        }
+        
+        KVPair findMe = new KVPair (songHandle, Handle.search);
+        ArrayList<KVPair> list = artistTree.find(findMe);
+        
+        for (KVPair pair:list)
+        {
+            System.out.println(
+                    "|" + pair.getString() + "|");
+        }
+        
+        System.out.println("total songs: " + list.size());
     }
 
     public void removeSong(String string)

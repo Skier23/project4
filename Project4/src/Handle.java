@@ -30,7 +30,7 @@ public class Handle implements Comparable<Handle>
         {
             return null;
         }
-        return new String(manager.getRecord(handle));
+        return manager.getString(handle);
     }
     @Override
     public int compareTo(Handle other)

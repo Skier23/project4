@@ -16,17 +16,17 @@ public class MemoryManager
     {
         byte[] stringBytes = string.getBytes();
 
-        
         if (size + stringBytes.length + 3 > data.length)
         {
             expand();
         }
-        
-        data[size] = 1;
-        data[size + 1] = (byte) stringBytes.length;
-        data[size + 2] = (byte) (stringBytes.length >>> 2);
-        
 
+        byte[] length = ByteBuffer.allocate(2)
+                .putShort((short) stringBytes.length).array();
+
+        data[size] = 1;
+        data[size + 1] = length[0];
+        data[size + 2] = length[1];
 
         for (int i = 0; i < stringBytes.length; i++)
         {
@@ -34,9 +34,9 @@ public class MemoryManager
         }
 
         int handle = size;
-        
+
         size += stringBytes.length + 3;
-        
+
         return handle;
     }
 
@@ -64,28 +64,37 @@ public class MemoryManager
     }
 
     /**
-     * Retrieves the record stored in a specified position in memory
+     * Retrieves the string stored in a specified position in memory
      * 
      * @param handle
-     *            The location of the record to retrieve.
-     * @return A byte array that corresponds to a record in memory
+     *            The location of the string to retrieve.
+     * @return The string stored at the specified handle
      */
-    public byte[] getRecord(int handle)
+    public String getString(int handle)
+    {
+        return new String(Arrays.copyOfRange(data, handle + 3,
+                handle + 3 + getLength(handle)));
+    }
+
+    /**
+     * @return the length of a specified record
+     * @param handle
+     *            The record whose length we want to find
+     * 
+     */
+    public int getLength(int handle)
     {
         if (handle > size - 4)
         {
-            return null;
+            return 0;
         }
 
-        
-        byte[] length = new byte[4];
-        
-        length[3] = data[handle  + 1];
-        length[2] = data[handle  + 2];
-        
-        int intLength = ByteBuffer.wrap(length).getInt();
+        byte[] length = new byte[2];
 
-        return Arrays.copyOfRange(data, handle + 3, handle + 3 + intLength);
+        length[0] = data[handle + 1];
+        length[1] = data[handle + 2];
+
+        return (int) ByteBuffer.wrap(length).getShort();
     }
-    
+
 }
