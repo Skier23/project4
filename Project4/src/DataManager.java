@@ -1,7 +1,5 @@
 import java.util.ArrayList;
 
-import org.junit.experimental.theories.Theories;
-
 /**
  * DataManager creates and maintains a Binary Search Tree in the binaryTree
  * field. DataManager acts as middle-man between the BST data structure and the
@@ -177,10 +175,22 @@ public class DataManager
         }
     }
 
-    public void removeArtist(String string)
+    public void removeArtist(String artist)
     {
-        // TODO Auto-generated method stub
-
+        Handle artistHandle = artistTable.find(artist);
+        if (artistHandle == null)
+        {
+            System.out.println("|" + artist + "| does not exist in the artist database.");
+        }
+        else
+        {
+            KVPair artistSearch = new KVPair(artistHandle, Handle.search);
+            ArrayList<KVPair> toRemove = artistTree.find(artistSearch);
+            for (int i = 0; i < toRemove.size(); i++)
+            {
+                artistTree.remove(artistSearch);
+            }
+        }
     }
 
     public void printArtist()
