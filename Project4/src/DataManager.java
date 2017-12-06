@@ -235,13 +235,35 @@ public class DataManager
 
     public void printArtist()
     {
-        // TODO Auto-generated method stub
+        Handle[] artists = artistTable.toArray();
+        int size = 0;
+        for (int i = 0; i < artists.length; i++)
+        {
+            if (artists[i] != HashTable.tombstone && artists[i] != null)
+            {
+                System.out.println("|" + artists[i].getString() + "| " +
+                        artists[i].toString());
+                size++;
+            }
+        }
+        System.out.println("total artists " + size);
 
     }
 
     public void printSong()
     {
-        // TODO Auto-generated method stub
+        Handle[] songs = songTable.toArray();
+        int size = 0;
+        for (int i = 0; i < songs.length; i++)
+        {
+            if (songs[i] != HashTable.tombstone && songs[i] != null)
+            {
+                System.out.println("|" + songs[i].getString() + "| " +
+                        songs[i].toString());
+                size++;
+            }
+        }
+        System.out.println("total songs " + size);
 
     }
 

@@ -4,7 +4,7 @@ public class HashTable
     private Handle[] hashTable;
     private int capacity;
     private int size;
-    private static Handle tombstone = new Handle(-1, null);
+    public static Handle tombstone = new Handle(-1, null);
     
     public HashTable(int size)
     {
@@ -114,6 +114,10 @@ public class HashTable
         }
     }
     
+    public Handle[] toArray()
+    {
+        return hashTable.clone();
+    }
     
     private int hashFunction(String toHash)
     {
@@ -139,6 +143,7 @@ public class HashTable
         }
         return (int)(Math.abs(sum) % capacity);
     }
+    
     
     
 }
