@@ -42,7 +42,6 @@ public class SongSearch
             }
 
         }
-
         inputList.close();
     
     }
