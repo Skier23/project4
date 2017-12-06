@@ -16,6 +16,8 @@ public class DataManagerTest
 {
     private DataManager manager;
     private ByteArrayOutputStream stream;
+    private String[] artist;
+    private String[] song;
 
     /**
      * Initializes the DataManager
@@ -26,7 +28,14 @@ public class DataManagerTest
     public void setUp()
     {
         manager = new DataManager(100, 100);
-
+        artist = new String[100];
+        song = new String[100];
+        for (int i = 0; i < artist.length; i++)
+        {
+            artist[i] = String.format("artist%4d", i);
+            song[i] = String.format("song6d", i);
+        }
+        
     }
 
     /**
@@ -37,8 +46,19 @@ public class DataManagerTest
     @Test
     public void testInsert()
     {
-        manager.insert("tyler", "the cool blues");
-        manager.insert("tyler", "the cool blues");
+        manager.insert(artist[0], song[0]);
+        
+        /*KVPair inserted = manager.insert("tyler", "the cool blues");
+        
+        assertEquals(inserted.getKey().getString(), "tyler");
+        assertEquals(inserted.getValue().getString(), "the cool blues");
+        
+        KVPair duplicate = manager.insert("tyler", "the cool blues");
+        
+        System.out.println(inserted.toString());
+        System.out.println(duplicate.toString());
+        assertNotEquals(inserted, duplicate);*/
+
     }
     /**
      * Tests the Insert method in DataManager.

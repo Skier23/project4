@@ -104,24 +104,7 @@ public class BSTTest
     }
 
     
-    /**
-     * Tests the Find and RemoveAll methods in BST.
-     * 
-     * @Test - indicates that this is a test method
-     */
-    @Test
-    public void testFindRemoveAll()
-    {
-        ArrayList<KVPair> backup = new ArrayList<KVPair>(pair);
-        while (pair.size() > 30)
-        {
-            int i = 30 + random.nextInt(+ pair.size());
-            bst.insert(pair.get(i));
-            pair.remove(i);
-        }
 
-        
-    }
 
 
 }

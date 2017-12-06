@@ -45,7 +45,7 @@ public class DataManager
      * @param y
      *            y coordinate of the new Point's upper right corner
      */
-    public void insert(String artist, String song)
+    public KVPair insert(String artist, String song)
     {
         Handle artistHandle = artistTable.find(artist);
         Handle songHandle = songTable.find(song);
@@ -59,7 +59,7 @@ public class DataManager
         else
         {
             System.out.println("|" + artist
-                    + " duplicates a record already in the Artist database.");
+                    + "| duplicates a record already in the Artist database.");
         }
         if (songHandle == null)
         {
@@ -69,30 +69,32 @@ public class DataManager
         }
         else
         {
-            System.out.println("|" + artist
-                    + " duplicates a record already in the Artist database.");
+            System.out.println("|" + song
+                    + "| duplicates a record already in the Song database.");
         }
         KVPair artistPair = new KVPair(artistHandle, songHandle);
         KVPair songPair = new KVPair(songHandle, artistHandle);
         if (artistTree.insert(artistPair))
         {
             System.out.println("The KVPair " + artistPair.getString() + ","
-                    + artistPair.toString() + "is added to the tree.");
+                    + artistPair.toString() + " is added to the tree.");
 
             songTree.insert(songPair);
             System.out.println("The KVPair " + songPair.getString() + ","
-                    + songPair.toString() + "is added to the tree.");
+                    + songPair.toString() + " is added to the tree.");
         }
         else
         {
             System.out.println("The KVPair " + artistPair.getString() + ","
                     + artistPair.toString()
-                    + "duplicates a record already in the tree.");
+                    + " duplicates a record already in the tree.");
 
             System.out.println("The KVPair " + songPair.getString() + ","
                     + songPair.toString()
-                    + "duplicates a record already in the tree.");
+                    + " duplicates a record already in the tree.");
         }
+        
+        return artistPair;
     }
 
     /**
@@ -106,7 +108,7 @@ public class DataManager
     public void delete(String artist, String song)
     {
         Handle artistHandle = artistTable.find(artist);
-        Handle songHandle = artistTable.find(song);
+        Handle songHandle = songTable.find(song);
         if (artistHandle == null)
         {
             System.out.println(
@@ -116,7 +118,7 @@ public class DataManager
         if (songHandle == null)
         {
             System.out.println(
-                    "|" + artist + "| does not exist in the artist database.");
+                    "|" + song + "| does not exist in the song database.");
             return;
         }
         KVPair artistPair = new KVPair(artistHandle, songHandle);
@@ -133,17 +135,19 @@ public class DataManager
             KVPair songSearch = new KVPair(songHandle, Handle.search);
             if (artistTree.find(artistSearch).isEmpty())
             {
+                System.out.println("|" + artist + "| is deleted from the"
+                        + " artist database.");
                 artistTable.remove(artist);
                 database.delete(artistHandle.getHandle());
-                System.out.println("|" + artist + "| is deleted from the"
-                        + " Artist database.");
+
             }
             if (songTree.find(songSearch).isEmpty())
             {
+                System.out.println("|" + song + "| is deleted from the"
+                        + " song database.");
                 songTable.remove(song);
                 database.delete(songHandle.getHandle());
-                System.out.println("|" + song + "| is deleted from the"
-                        + " Song database.");
+
             }
         }
         else
@@ -179,18 +183,23 @@ public class DataManager
                 songTree.remove(toRemoveOther);
                 System.out.println("The KVPair " + toRemoveOther.getString()
                         + " is deleted from the tree.");
+                
+                System.out.println("|" + artist + "| is deleted from the"
+                        + " Artist database.");
+                artistTable.remove(artist);
+                database.delete(artistHandle.getHandle());
+
+                
                 if (songTree.find(removedSearch).isEmpty())
                 {
-                    songTable.remove(removedSearch.getKey().getString());
-                    database.delete(removedSearch.getKey().getHandle());
                     System.out.println("|" + removedSearch.getKey().getString()
                             + "| is deleted from the" + " Song database.");
+                    songTable.remove(removedSearch.getKey().getString());
+                    database.delete(removedSearch.getKey().getHandle());
+
                 }
             }
-            artistTable.remove(artist);
-            database.delete(artistHandle.getHandle());
-            System.out.println("|" + artist + "| is deleted from the"
-                    + " Artist database.");
+
         }
     }
 
@@ -220,16 +229,18 @@ public class DataManager
                         + " is deleted from the tree.");
                 if (artistTree.find(removedSearch).isEmpty())
                 {
-                    artistTable.remove(removedSearch.getKey().getString());
-                    database.delete(removedSearch.getKey().getHandle());
                     System.out.println("|" + removedSearch.getKey().getString()
                             + "| is deleted from the" + " Artist database.");
+                    artistTable.remove(removedSearch.getKey().getString());
+                    database.delete(removedSearch.getKey().getHandle());
+
                 }
             }
-            songTable.remove(song);
-            database.delete(songHandle.getHandle());
             System.out.println(
                     "|" + song + "| is deleted from the" + " Song database.");
+            songTable.remove(song);
+            database.delete(songHandle.getHandle());
+
         }
     }
 
@@ -242,11 +253,11 @@ public class DataManager
             if (artists[i] != HashTable.tombstone && artists[i] != null)
             {
                 System.out.println("|" + artists[i].getString() + "| "
-                        + artists[i].toString());
+                        + i);
                 size++;
             }
         }
-        System.out.println("total artists " + size);
+        System.out.println("total artists: " + size);
 
     }
 
@@ -259,11 +270,11 @@ public class DataManager
             if (songs[i] != HashTable.tombstone && songs[i] != null)
             {
                 System.out.println("|" + songs[i].getString() + "| "
-                        + songs[i].toString());
+                        + i);
                 size++;
             }
         }
-        System.out.println("total songs " + size);
+        System.out.println("total songs: " + size);
 
     }
 
@@ -338,7 +349,7 @@ public class DataManager
         if (artistHandle == null)
         {
             System.out.println(
-                    "|" + artist + "| does not exist in the Artist database.");
+                    "|" + artist + "| does not exist in the artist database.");
             return 0;
         }
 
@@ -347,10 +358,8 @@ public class DataManager
 
         for (KVPair pair : list)
         {
-            System.out.println("|" + pair.getString() + "|");
+            System.out.println("|" + pair.getValue().getString() + "|");
         }
-
-        System.out.println("total songs: " + list.size());
 
         return list.size();
 
@@ -370,7 +379,7 @@ public class DataManager
         if (songHandle == null)
         {
             System.out.println(
-                    "|" + song + "| does not exist in the Artist database.");
+                    "|" + song + "| does not exist in the song database.");
             return 0;
         }
 
@@ -379,10 +388,9 @@ public class DataManager
 
         for (KVPair pair : list)
         {
-            System.out.println("|" + pair.getString() + "|");
+            System.out.println("|" + pair.getValue().getString() + "|");
         }
 
-        System.out.println("total songs: " + list.size());
         return list.size();
     }
 
