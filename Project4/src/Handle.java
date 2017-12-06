@@ -20,10 +20,7 @@ public class Handle implements Comparable<Handle>
     
     public String toString()
     {
-        if (manager == null)
-        {
-            return null;
-        }
+
         return handle + "";
     }
     

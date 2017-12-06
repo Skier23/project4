@@ -1,7 +1,6 @@
 import static org.junit.Assert.*;
 
 import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -36,8 +35,8 @@ public class DataManagerTest
      * @Test - indicates that this is a test method
      */
     @Test
-    public void testSearch()
+    public void testInsert()
     {
-        
+        manager.insert("tyler", "the cool blues");
     }
 }
