@@ -30,7 +30,7 @@ public class DataManagerTest
     }
 
     /**
-     * Tests the checkName name method in DataManager.
+     * Tests the Insert method in DataManager.
      * 
      * @Test - indicates that this is a test method
      */
@@ -39,5 +39,16 @@ public class DataManagerTest
     {
         manager.insert("tyler", "the cool blues");
         manager.insert("tyler", "the cool blues");
+    }
+    /**
+     * Tests the Insert method in DataManager.
+     * 
+     * @Test - indicates that this is a test method
+     */
+    @Test
+    public void testDelete()
+    {
+        manager.insert("tyler", "the cool blues");
+        manager.delete("tyler", "the cool blues");
     }
 }
