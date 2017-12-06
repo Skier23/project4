@@ -32,7 +32,7 @@ public class DataManager
         songTable = new HashTable(initialHashSize);
 
     }
-
+    
     /**
      * Inserts a new Point into the tree. Rejects Points that with 0 or negative
      * dimensions or ones that exceed the bounds of a 1024 x 1024 space. Also
