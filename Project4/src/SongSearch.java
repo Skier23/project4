@@ -87,12 +87,9 @@ public class SongSearch
      */
     public static Scanner makeScanner(File file)
     {
-
         try
         {
-            // No file name, defaulting to SyntaxTest.txt
             return new Scanner(file);
-
         }
         catch (Exception e)
         {

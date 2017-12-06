@@ -1,5 +1,7 @@
 import static org.junit.Assert.*;
 
+import java.io.File;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -13,7 +15,32 @@ public class SongSearchTest
     }
 
     /**
-     * Tests the execute method with a variety of 
+     * Tests the checkArgs method with a variety of inputs
+     * @Test indicates that this is a test method
+     */
+    @Test
+    public void testCheckArgs()
+    {
+        assertFalse(SongSearch.checkArgs(new String[] {"5", "5"}));
+        assertFalse(SongSearch.checkArgs(new String[] {"0", "5", "test.txt"}));
+        assertFalse(SongSearch.checkArgs(new String[] {"5", "0", "test.txt"}));
+        assertTrue(SongSearch.checkArgs(new String[] {"5", "5", "test.txt"}));
+    }
+    
+    /**
+     * Tests the checkArgs method with a variety of inputs
+     * @Test indicates that this is a test method
+     */
+    @Test
+    public void testMakeScanner()
+    {
+        assertNull(SongSearch.makeScanner(new File("fail")));
+
+    }
+    
+    /**
+     * Tests the execute method with a variety of inputs
+     * @Test indicates that this is a test method
      */
     @Test
     public void testExecute()
