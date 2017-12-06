@@ -97,20 +97,6 @@ public class DataManager
         }
     }
 
-    /**
-     * Removes the first Point found with the specified name from the tree.
-     * Fails if the tree is empty
-     * 
-     * @param name
-     *            Name of the Point to remove
-     * @return the name of the point removed
-     */
-    public String remove(String name)
-    {
-        // TODO Auto-generated method stub
-        return "false";
-
-    }
 
     /**
      * Prints out a list of all Point pairs that intersect with each other
@@ -141,11 +127,54 @@ public class DataManager
     {
         return artistTree.size();
     }
-
-    public void delete(String string, String string2)
+    public void delete(String artist, String song)
     {
-        // TODO Auto-generated method stub
-
+        Handle artistHandle = artistTable.find(artist);
+        Handle songHandle = artistTable.find(song);
+        if (artistHandle == null)
+        {
+            System.out.println("|" + artist + "| does not exist in the artist database.");
+            return;
+        }
+        if (songHandle == null)
+        {
+            System.out.println("|" + artist + "| does not exist in the artist database.");
+            return;
+        }
+        KVPair artistPair = new KVPair(artistHandle, songHandle);
+        KVPair songPair = new KVPair(songHandle, artistHandle);
+        if (!artistTree.find(artistPair).isEmpty())
+        {
+            artistTree.remove(artistPair);
+            System.out.println("The KVPair (|" + artist + "|,|" + song + "|)"
+                    + " is deleted from the tree.");
+            songTree.remove(songPair);
+            System.out.println("The KVPair (|" + song + "|,|" + artist + "|)"
+                    + " is deleted from the tree.");
+            KVPair artistSearch = new KVPair(artistHandle, Handle.search);
+            KVPair songSearch = new KVPair(songHandle, Handle.search);
+            if (artistTree.find(artistSearch).isEmpty())
+            {
+                artistTable.remove(artist);
+                database.delete(artistHandle.getHandle());
+                System.out.println("|" + artist + "| is deleted from the"
+                        + " Artist database.");
+            }
+            if (songTree.find(songSearch).isEmpty())
+            {
+                songTable.remove(song);
+                database.delete(songHandle.getHandle());
+                System.out.println("|" + song + "| is deleted from the"
+                        + " Song database.");
+            }
+        }
+        else 
+        {
+            System.out.println("The KVPair (|" + artist + "|,|" + song + "|)"
+                    + " was not found in the database.");
+            System.out.println("The KVPair (|" + song + "|,|" + artist + "|)"
+                    + " was not found in the database.");
+        }
     }
 
     public void removeArtist(String string)
