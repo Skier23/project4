@@ -38,5 +38,6 @@ public class DataManagerTest
     public void testInsert()
     {
         manager.insert("tyler", "the cool blues");
+        manager.insert("tyler", "the cool blues");
     }
 }
