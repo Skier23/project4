@@ -218,23 +218,18 @@ public class BST<T extends Comparable<? super T>>
         }
         if (rt.value().compareTo(t) > 0)
         {
-            if (result.size() >= 1)
-            {
-                return;
-            }
+
             findhelp(rt.left(), t, result);
         }
         else if (rt.value().compareTo(t) == 0)
         {
             result.add(rt.value());
+            findhelp(rt.left(), t, result);
             findhelp(rt.right(), t, result);
         }
         else
         {
-            if (result.size() >= 1)
-            {
-                return;
-            }
+
             findhelp(rt.right(), t, result);
         }
     }
