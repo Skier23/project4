@@ -179,14 +179,20 @@ public class DataManager
                         removed.getKey());
                 KVPair removedSearch = new KVPair(removed.getValue(),
                         Handle.search);
+                KVPair removedSearch2 = new KVPair(removed.getKey(),
+                        Handle.search);
                 System.out.println("The KVPair " + removed.getString()
                         + " is deleted from the tree.");
                 songTree.remove(toRemoveOther);
                 System.out.println("The KVPair " + toRemoveOther.getString()
                         + " is deleted from the tree.");
-                System.out.println("|" + artist + "| is deleted from the"
-                        + " Artist database.");
-                artistTable.remove(artist);
+                if(artistTree.find(removedSearch2).isEmpty())
+                {
+                    System.out.println("|" + artist + "| is deleted from the"
+                            + " Artist database.");
+                    artistTable.remove(artist);
+                    database.delete(artistHandle.getHandle());
+                }
                 if (songTree.find(removedSearch).isEmpty())
                 {
                     System.out.println("|" + removedSearch.getKey().getString()
@@ -195,10 +201,6 @@ public class DataManager
                     database.delete(removedSearch.getKey().getHandle());
 
                 }
-                database.delete(artistHandle.getHandle());
-
-                
-
             }
 
         }
@@ -223,14 +225,20 @@ public class DataManager
                         removed.getKey());
                 KVPair removedSearch = new KVPair(removed.getValue(),
                         Handle.search);
+                KVPair removedSearch2 = new KVPair(removed.getKey(),
+                        Handle.search);
                 System.out.println("The KVPair " + removed.getString()
                         + " is deleted from the tree.");
                 artistTree.remove(toRemoveOther);
                 System.out.println("The KVPair " + toRemoveOther.getString()
                         + " is deleted from the tree.");
-                System.out.println(
-                        "|" + song + "| is deleted from the" + " Song database.");
-                songTable.remove(song);
+                if (songTree.find(removedSearch2).isEmpty())
+                {
+                    System.out.println(
+                            "|" + song + "| is deleted from the" + " Song database.");
+                    songTable.remove(song);
+                    database.delete(songHandle.getHandle());
+                }
                 if (artistTree.find(removedSearch).isEmpty())
                 {
                     System.out.println("|" + removedSearch.getKey().getString()
@@ -240,8 +248,6 @@ public class DataManager
 
                 }
             }
-            database.delete(songHandle.getHandle());
-
         }
     }
 
