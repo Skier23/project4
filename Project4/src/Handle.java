@@ -7,13 +7,13 @@ public class Handle implements Comparable<Handle>
     private int handle;
     private MemoryManager manager;
     public static Handle search = new Handle(-1, null);
-    public String value;
+    //public String value;
     
     public Handle(int myHandle, MemoryManager myData)
     {
         handle = myHandle;
         manager = myData;
-        value = getString();
+        //value = getString();
     }
     public int getHandle()
     {
