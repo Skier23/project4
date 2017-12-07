@@ -133,6 +133,7 @@ public class DataManager
                     + " is deleted from the tree.");
             KVPair artistSearch = new KVPair(artistHandle, Handle.search);
             KVPair songSearch = new KVPair(songHandle, Handle.search);
+            
             if (artistTree.find(artistSearch).isEmpty())
             {
                 System.out.println("|" + artist + "| is deleted from the"
@@ -183,13 +184,9 @@ public class DataManager
                 songTree.remove(toRemoveOther);
                 System.out.println("The KVPair " + toRemoveOther.getString()
                         + " is deleted from the tree.");
-                
                 System.out.println("|" + artist + "| is deleted from the"
                         + " Artist database.");
                 artistTable.remove(artist);
-                database.delete(artistHandle.getHandle());
-
-                
                 if (songTree.find(removedSearch).isEmpty())
                 {
                     System.out.println("|" + removedSearch.getKey().getString()
@@ -198,6 +195,10 @@ public class DataManager
                     database.delete(removedSearch.getKey().getHandle());
 
                 }
+                database.delete(artistHandle.getHandle());
+
+                
+
             }
 
         }
@@ -227,6 +228,9 @@ public class DataManager
                 artistTree.remove(toRemoveOther);
                 System.out.println("The KVPair " + toRemoveOther.getString()
                         + " is deleted from the tree.");
+                System.out.println(
+                        "|" + song + "| is deleted from the" + " Song database.");
+                songTable.remove(song);
                 if (artistTree.find(removedSearch).isEmpty())
                 {
                     System.out.println("|" + removedSearch.getKey().getString()
@@ -236,9 +240,6 @@ public class DataManager
 
                 }
             }
-            System.out.println(
-                    "|" + song + "| is deleted from the" + " Song database.");
-            songTable.remove(song);
             database.delete(songHandle.getHandle());
 
         }
@@ -375,7 +376,7 @@ public class DataManager
      */
     public int listSong(String song)
     {
-        Handle songHandle = artistTable.find(song);
+        Handle songHandle = songTable.find(song);
         if (songHandle == null)
         {
             System.out.println(
@@ -384,7 +385,7 @@ public class DataManager
         }
 
         KVPair findMe = new KVPair(songHandle, Handle.search);
-        ArrayList<KVPair> list = artistTree.find(findMe);
+        ArrayList<KVPair> list = songTree.find(findMe);
 
         for (KVPair pair : list)
         {
