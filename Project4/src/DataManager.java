@@ -93,7 +93,7 @@ public class DataManager
                     + songPair.toString()
                     + " duplicates a record already in the tree.");
         }
-        
+
         return artistPair;
     }
 
@@ -109,16 +109,22 @@ public class DataManager
     {
         Handle artistHandle = artistTable.find(artist);
         Handle songHandle = songTable.find(song);
+        boolean valid = true;;
         if (artistHandle == null)
         {
             System.out.println(
                     "|" + artist + "| does not exist in the artist database.");
-            return;
+            valid = false;
         }
         if (songHandle == null)
         {
             System.out.println(
                     "|" + song + "| does not exist in the song database.");
+            valid = false;
+        }
+        
+        if (!valid)
+        {
             return;
         }
         KVPair artistPair = new KVPair(artistHandle, songHandle);
@@ -133,7 +139,7 @@ public class DataManager
                     + " is deleted from the tree.");
             KVPair artistSearch = new KVPair(artistHandle, Handle.search);
             KVPair songSearch = new KVPair(songHandle, Handle.search);
-            
+
             if (artistTree.find(artistSearch).isEmpty())
             {
                 System.out.println("|" + artist + "| is deleted from the"
@@ -186,7 +192,7 @@ public class DataManager
                 songTree.remove(toRemoveOther);
                 System.out.println("The KVPair " + toRemoveOther.getString()
                         + " is deleted from the tree.");
-                if(artistTree.find(removedSearch2).isEmpty())
+                if (artistTree.find(removedSearch2).isEmpty())
                 {
                     System.out.println("|" + artist + "| is deleted from the"
                             + " Artist database.");
@@ -234,8 +240,8 @@ public class DataManager
                         + " is deleted from the tree.");
                 if (songTree.find(removedSearch2).isEmpty())
                 {
-                    System.out.println(
-                            "|" + song + "| is deleted from the" + " Song database.");
+                    System.out.println("|" + song + "| is deleted from the"
+                            + " Song database.");
                     songTable.remove(song);
                     database.delete(songHandle.getHandle());
                 }
@@ -259,8 +265,7 @@ public class DataManager
         {
             if (artists[i] != HashTable.tombstone && artists[i] != null)
             {
-                System.out.println("|" + artists[i].getString() + "| "
-                        + i);
+                System.out.println("|" + artists[i].getString() + "| " + i);
                 size++;
             }
         }
@@ -276,8 +281,7 @@ public class DataManager
         {
             if (songs[i] != HashTable.tombstone && songs[i] != null)
             {
-                System.out.println("|" + songs[i].getString() + "| "
-                        + i);
+                System.out.println("|" + songs[i].getString() + "| " + i);
                 size++;
             }
         }
@@ -326,15 +330,16 @@ public class DataManager
             printed += binaryDumpHelper(root.left(), level + 1);
 
             // Print out the node's data.
-            if (level > 0)
+
+            String spaces = "";
+
+            for (int i = 0; i < level; i++)
+
             {
-                System.out.printf("%" + level * 2 + "s%s\n", "",
-                        root.value().toString());
+                spaces += "  ";
             }
-            else
-            {
-                System.out.println(root.value().toString());
-            }
+
+            System.out.println(spaces + root.value().toString());
 
             printed++;
 
