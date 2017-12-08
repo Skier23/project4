@@ -1,11 +1,8 @@
 import java.util.ArrayList;
 
 /**
- * DataManager creates and maintains a Binary Search Tree in the binaryTree
- * field. DataManager acts as middle-man between the BST data structure and the
- * Point1 front end. Point1 calls functions in DataManager, which in turn call
- * the required functions in the BST.
- * 
+ * Datamanager store the bsts, the hashtables, and performs functions on these
+ * data
  * 
  * 
  * @author Tyler Bench, ski23
@@ -37,16 +34,11 @@ public class DataManager
     }
 
     /**
-     * Inserts a new Point into the tree. Rejects Points that with 0 or negative
-     * dimensions or ones that exceed the bounds of a 1024 x 1024 space. Also
-     * rejects names that don't start with a letter of the alphabet.
-     * 
-     * @param song
-     *            Name of the Point to insert
-     * @param x
-     *            X coordinate of the new Point's upper left corner
-     * @param y
-     *            y coordinate of the new Point's upper right corner
+     * Inserts a KVPair into the database, hashtable, and tree if appropriate.
+     *
+     * @param artist the artist
+     * @param song            Name of the Point to insert
+     * @return the KV pair
      */
     public KVPair insert(String artist, String song)
     {
@@ -100,11 +92,17 @@ public class DataManager
         return artistPair;
     }
 
+    /**
+     * Deletes the artist, song pair if it exists
+     *
+     * @param artist the artist part of the pair to delete
+     * @param song the song part of the pair to delete
+     */
     public void delete(String artist, String song)
     {
         Handle artistHandle = artistTable.find(artist);
         Handle songHandle = songTable.find(song);
-        boolean valid = true;;
+        boolean valid = true;
         if (artistHandle == null)
         {
             System.out.println(
@@ -161,6 +159,11 @@ public class DataManager
         }
     }
 
+    /**
+     * Removes all songs by this artist
+     *
+     * @param artist the artist
+     */
     public void removeArtist(String artist)
     {
         Handle artistHandle = artistTable.find(artist);
@@ -206,7 +209,11 @@ public class DataManager
 
         }
     }
-
+    /**
+     * Removes all artists who have a song with this name
+     *
+     * @param song the song
+     */
     public void removeSong(String song)
     {
         Handle songHandle = songTable.find(song);
@@ -252,7 +259,10 @@ public class DataManager
         }
     }
 
-    public int printArtist()
+    /**
+     * Prints all the artists
+     */
+    public void printArtist()
     {
         Handle[] artists = artistTable.toArray();
         int size = 0;
@@ -266,10 +276,11 @@ public class DataManager
         }
         System.out.println("total artists: " + size);
 
-        return size;
     }
-
-    public int printSong()
+    /**
+     * Prints all the songs
+     */
+    public void printSong()
     {
         Handle[] songs = songTable.toArray();
         int size = 0;
@@ -283,13 +294,11 @@ public class DataManager
         }
         System.out.println("total songs: " + size);
 
-        return size;
     }
 
     /**
-     * Prints out a list of all Points within the BST, followed by a list of the
-     * points and nodes in the QuadTree Split to assist in testing
-     * 
+     * Prints out all the KVPairs in the artist and song trees
+     *
      * @return the number of entries printed.
      */
     public int printTree()
