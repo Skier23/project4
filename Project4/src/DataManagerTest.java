@@ -85,8 +85,8 @@ public class DataManagerTest
         assertEquals(1, manager.listArtist(artist[0]));
         assertEquals(1, manager.listSong(song[0]));
         manager.delete(artist[1], song[0]);
-        assertEquals(1, manager.printArtist());
-        assertEquals(1, manager.printSong());
+        assertEquals(1, manager.listArtist(artist[0]));
+        assertEquals(1, manager.listSong(song[1]));
         manager.insert(artist[1], song[1]);
         assertEquals(4, manager.printTree());
         assertEquals(1, manager.listArtist(artist[1]));
