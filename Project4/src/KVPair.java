@@ -42,17 +42,31 @@ public class KVPair implements Comparable<KVPair>
     }
 
     /**
+     * gets the kvpair as a string
      * 
+     * @return the kvpair represented as a string of the two handles
      */
     public String toString()
     {
         return "(" + key + "," + value + ")";
     }
     
+    /**
+     * gets the kvpair as a string of the handle's strings
+     * 
+     * @return the kvpair represented as a string of the two handles' strings
+     */
     public String getString()
     {
         return "(|"+ key.getString() + "|,|" + value.getString() + "|)";
     }
+    
+    /* 
+     * compares two KVPairs by their key values with value as a tie breaker
+     * 
+     * @param the other KVPair to compare
+     * @return the result
+     */
     @Override
     public int compareTo(KVPair other)
     {

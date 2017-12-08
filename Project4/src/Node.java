@@ -27,16 +27,11 @@ public class Node<T>
     // ------------------------------------------------------------
     /**
      * Constructs a new Node object with a given key, data to hold, and two
-     * sub-nodes
-     * 
-     * @param k
-     *            The key value for the new node
-     * @param data
-     *            The data contained within the node
-     * @param leftLocal
-     *            The new node's left hand sub node
-     * @param rightLocal
-     *            The new node's right hand sub node
+     * sub-nodes.
+     *
+     * @param data            The data contained within the node
+     * @param leftLocal            The new node's left hand sub node
+     * @param rightLocal            The new node's right hand sub node
      */
     public Node(T data, Node<T> leftLocal, Node<T> rightLocal)
     {
@@ -49,11 +44,8 @@ public class Node<T>
     /**
      * Constructs a new Node object with a given key and data value. Initializes
      * the sub nodes to null
-     * 
-     * @param k
-     *            The key value for the new node
-     * @param data
-     *            The data contained within the node
+     *
+     * @param data            The data contained within the node
      */
     public Node(T data)
     {

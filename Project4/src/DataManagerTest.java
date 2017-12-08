@@ -1,7 +1,5 @@
 import static org.junit.Assert.*;
 
-import java.io.ByteArrayOutputStream;
-
 import org.junit.Before;
 import org.junit.Test;
 

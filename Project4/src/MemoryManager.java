@@ -130,10 +130,6 @@ public class MemoryManager
         
         if (length > 0)
         {
-            if (data[handle] == 0)
-            {
-                //throw new IllegalArgumentException("handle is deleted");
-            }
             return new String(Arrays.copyOfRange(data, handle + 3,
                 handle + 3 + length));
         }
