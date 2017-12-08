@@ -270,7 +270,7 @@ public class DataManager
         {
             if (artists[i] != HashTable.TOMBSTONE && artists[i] != null)
             {
-                System.out.println("|" + artists[i].getString() + "| " + i);
+                System.out.printf("|%s| %d\n", artists[i].getString(), i);
                 size++;
             }
         }
@@ -288,7 +288,7 @@ public class DataManager
         {
             if (songs[i] != HashTable.TOMBSTONE && songs[i] != null)
             {
-                System.out.println("|" + songs[i].getString() + "| " + i);
+                System.out.printf("|%s| %d\n", songs[i].getString(), i);
                 size++;
             }
         }

@@ -25,32 +25,49 @@ public class SongSearch
         }
         
         File inputs =  new File(args[2]);
-        Scanner inputList = makeScanner(inputs);
 
+        scanFile(inputs, Integer.parseInt(args[0]), Integer.parseInt(args[1]));
+    
+    }
+    
+    /**
+     * Scans a file for commands and executes them.  Generates a DataManager
+     * with specified block and hash size.
+     * 
+     * @param inputs
+     *      the file to read commands from
+     * @param blockSize
+     *      the initial size of the memory pool
+     * @param hashSize   
+     *      the initial size of the hash table  
+     * @return the number of lines scanned
+     */
+    public static int scanFile(File inputs, int blockSize, int hashSize)
+    {
+        Scanner inputList = makeScanner(inputs);
+        
         if (inputList == null)
         {
-            return;
+            return 0;
         }
+                
+        DataManager manager = new DataManager(blockSize, hashSize);
         
-        DataManager manager = new DataManager(Integer.parseInt(args[0]),
-                Integer.parseInt(args[1]));
-
+        int lines = 0;
         // While loop breaks up the list into lines
         while (inputList.hasNextLine())
         {
-
             String line = inputList.nextLine().trim();
             // Ignore blank lines
             if (!line.isEmpty() && !line.equals("\n"))
             {
-
                 // Interpret command
                 execute(line, manager);
             }
-
+            lines++;
         }
         inputList.close();
-    
+        return lines;
     }
     
     /**

@@ -16,7 +16,6 @@ import org.junit.Test;
 public class BSTTest
 {
     private BST<KVPair> bst;
-    private MemoryManager manager;
     private Random random;
     private ArrayList<Handle> handle;
     private ArrayList<KVPair> pair;
@@ -31,7 +30,7 @@ public class BSTTest
     public void setUp()
     {
         bst = new BST<KVPair>();
-        manager = new MemoryManager(100);
+        MemoryManager manager = new MemoryManager(100);
         handle = new ArrayList<Handle>();
         pair = new ArrayList<KVPair>();
 
@@ -100,8 +99,7 @@ public class BSTTest
         {
             int i = random.nextInt(removeList.size());
             removeMe = new KVPair(removeList.get(i).getKey(), Handle.SEARCH);
-            
-            //assertEquals(removeList.get(i), bst.remove(removeMe));
+
             assertEquals(removeMe.compareTo(bst.remove(removeMe)), 0);
 
             removeList.remove(i);
@@ -120,7 +118,7 @@ public class BSTTest
     @Test
     public void testFind()
     {
-        bst.insert(pair.get(0)); 
+        bst.insert(new KVPair(handle.get(0), handle.get(1))); 
         
         KVPair findMe = new KVPair(handle.get(0), Handle.SEARCH);
         
@@ -135,7 +133,6 @@ public class BSTTest
             assertFalse(bst.insert(pair.get(i)));
             pair.remove(i);
         }
-        
 
         findMe = new KVPair(handle.get(100), Handle.SEARCH);
         
@@ -144,10 +141,9 @@ public class BSTTest
         assertEquals(dupes.size(), duplicates);
         
         
-        
-        for (KVPair pair:dupes)
+        for (KVPair thisPair:dupes)
         {
-            assertEquals(pair.getKey(), handle.get(100));
+            assertEquals(thisPair.getKey(), handle.get(100));
         }
     }
 
@@ -163,9 +159,5 @@ public class BSTTest
         bst.clear();
         assertNull(bst.remove(pair.get(0)));
     }
-
-    
-
-
 
 }
