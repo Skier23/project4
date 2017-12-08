@@ -297,11 +297,11 @@ public class DataManager
         int printed = 0;
         System.out.println("Printing artist tree:");
 
-        printed += binaryDumpHelper(artistTree.root, 0);
+        printed += binaryDumpHelper(artistTree.getRoot(), 0);
 
         System.out.println("Printing song tree:");
 
-        printed += binaryDumpHelper(songTree.root, 0);
+        printed += binaryDumpHelper(songTree.getRoot(), 0);
 
         return printed;
 

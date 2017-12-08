@@ -62,15 +62,23 @@ public class BSTTest
 
 
     /**
-     * Tests the insert and remove methods in BST.
+     * Tests the insert, find, and remove methods in BST.
      * 
      * @Test - indicates that this is a test method
      */
     @Test
     public void testInsertFindRemove()
     {
+        assertNull(bst.getRoot());
         bst.insert(pair.get(0)); 
         assertEquals(bst.size(), 1);
+        assertNotNull(bst.getRoot());
+        
+        KVPair findMe = new KVPair(handle.get(0), Handle.search);
+        
+        assertEquals(bst.find(findMe).size(), 1);
+        
+        
         KVPair removeMe = new KVPair(pair.get(1).getKey(), Handle.search);
         assertNull(bst.remove(removeMe));
         removeMe = new KVPair(pair.get(0).getKey(), Handle.search);
@@ -91,12 +99,11 @@ public class BSTTest
         assertEquals(bst.size(), removeList.size());
         
         
-        KVPair findMe = new KVPair(handle.get(100), Handle.search);
+        findMe = new KVPair(handle.get(100), Handle.search);
         
-        ArrayList<KVPair> dupes = bst.find(findMe);
+        assertEquals(bst.find(findMe).size(), duplicates);
         
-        assertEquals(dupes.size(), duplicates);
-        
+
         
         while (!removeList.isEmpty())
         {
@@ -105,7 +112,7 @@ public class BSTTest
             System.out.printf("get(i): %s, removeMe: %s\n",
                     removeList.get(i).getString(), removeMe.getString());
             //assertEquals(removeList.get(i), bst.remove(removeMe));
-            assertEquals(removeList.get(i).compareTo(bst.remove(removeMe)), 0);
+            assertEquals(removeMe.compareTo(bst.remove(removeMe)), 0);
 
             removeList.remove(i);
         }
