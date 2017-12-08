@@ -10,7 +10,7 @@ import java.util.ArrayList;
  * 
  * @author Tyler Bench, ski23
  * @author Christian Dy, k4b0odls
- * @version 2017-09-24
+ * @version 2017-12-3
  */
 public class DataManager
 {
@@ -95,14 +95,6 @@ public class DataManager
         }
         
         return artistPair;
-    }
-
-    /**
-     * @return the number of points held in the trees
-     */
-    public int getSize()
-    {
-        return artistTree.size();
     }
 
     public void delete(String artist, String song)

@@ -1,5 +1,3 @@
-import java.nio.ByteBuffer;
-import java.util.Arrays;
 
 public class Handle implements Comparable<Handle>
 {
@@ -7,13 +5,11 @@ public class Handle implements Comparable<Handle>
     private int handle;
     private MemoryManager manager;
     public static Handle search = new Handle(-1, null);
-    //public String value;
     
     public Handle(int myHandle, MemoryManager myData)
     {
         handle = myHandle;
         manager = myData;
-        //value = getString();
     }
     public int getHandle()
     {
