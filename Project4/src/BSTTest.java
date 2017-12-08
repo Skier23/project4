@@ -16,10 +16,10 @@ import org.junit.Test;
 public class BSTTest
 {
     private BST<KVPair> bst;
-    private MemoryManager manager;
+    //private MemoryManager manager;
     private Random random;
     private ArrayList<KVPair> pair;
-    private int duplicates;
+    //private int duplicates;
     
     /**
      * Initializes the BST and various KVPairs and Handles
@@ -30,11 +30,11 @@ public class BSTTest
     public void setUp()
     {
         bst = new BST<KVPair>();
-        manager = new MemoryManager(100);
-        ArrayList<Handle >handle = new ArrayList<Handle>();
+        MemoryManager manager = new MemoryManager(100);
+        ArrayList<Handle>handle = new ArrayList<Handle>();
         pair = new ArrayList<KVPair>();
         
-        duplicates = 0;
+        //duplicates = 0;
         
         random = new Random();
 
@@ -43,7 +43,7 @@ public class BSTTest
             int x = 99;
             if (random.nextInt(5) == 0)
             {
-                duplicates++;
+                //duplicates++;
             }
             else
             {

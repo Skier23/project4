@@ -58,7 +58,7 @@ public class KVPair implements Comparable<KVPair>
      */
     public String getString()
     {
-        return "(|"+ key.getString() + "|,|" + value.getString() + "|)";
+        return "(|" + key.getString() + "|,|" + value.getString() + "|)";
     }
     
     /* 
