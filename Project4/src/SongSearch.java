@@ -236,8 +236,8 @@ public class SongSearch
                                             + "are print {artist|song|tree}");
                             
                     }
-                    return false;
                 }
+                return false;
 
             default:
                 System.out.println("Unrecognized command!: " + command[0]);

@@ -5,17 +5,29 @@ import java.io.File;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * The Class SongSearchTest.
+ * @author Tyler Bench, ski23
+ * @author Christian Dy, k4b0odls
+ * @version 2017-12-4
+ */
 public class SongSearchTest
 {
 
+    /**
+     * Sets up the tests
+     *
+     * @throws Exception the exception
+     */
     @Before
     public void setUp() throws Exception
     {
-        
+        System.out.println("todo");
     }
 
     /**
-     * Tests the checkArgs method with a variety of inputs
+     * Tests the checkArgs method with a variety of inputs.
+     *
      * @Test indicates that this is a test method
      */
     @Test
@@ -28,7 +40,8 @@ public class SongSearchTest
     }
     
     /**
-     * Tests the checkArgs method with a variety of inputs
+     * Tests the checkArgs method with a variety of inputs.
+     *
      * @Test indicates that this is a test method
      */
     @Test
@@ -39,7 +52,8 @@ public class SongSearchTest
     }
     
     /**
-     * Tests the execute method with a variety of inputs
+     * Tests the execute method with a variety of inputs.
+     *
      * @Test indicates that this is a test method
      */
     @Test

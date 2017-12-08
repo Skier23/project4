@@ -25,7 +25,7 @@ public class BST<T extends Comparable<? super T>>
      * @param root
      *            The first node within the tree
      */
-    public Node<T> root;
+    private Node<T> root;
 
     /**
      * @param nodecount
@@ -169,9 +169,6 @@ public class BST<T extends Comparable<? super T>>
      * 
      * @param rt
      *            The node to search in each iteration of recursion
-     * @param result
-     *            An ArrayList containing the values of all nodes corresponding
-     *            to the given key
      */
     private T findhelp(Node<T> rt, T t)
     {
@@ -295,6 +292,17 @@ public class BST<T extends Comparable<? super T>>
         }
         rt.setLeft(deletemin(rt.left()));
         return rt;
+    }
+    
+    /**
+     * Recursive method that removes and returns the left-most node in the tree.
+     * 
+     * @param rt
+     * @return the root
+     */
+    public Node<T> getRoot()
+    {
+        return root;
     }
 
 }

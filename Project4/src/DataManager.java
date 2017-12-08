@@ -21,7 +21,10 @@ public class DataManager
     private HashTable songTable;
 
     /**
-     * Constructs a new DataManager object. Initializes the binaryTree field.
+     * Constructs a new DataManager object. Initializes fields.
+     *
+     * @param blocksize the blocksize for the database
+     * @param initialHashSize the initial hash size
      */
     public DataManager(int blocksize, int initialHashSize)
     {

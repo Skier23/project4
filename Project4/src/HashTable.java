@@ -1,11 +1,30 @@
 
+/**
+ * The Class HashTable.
+ * @author Tyler Bench, ski23
+ * @author Christian Dy, k4b0odls
+ * @version 2017-12-3
+ */
 public class HashTable
 {
+    
+    /** The hash table. */
     private Handle[] hashTable;
+    
+    /** The capacity. */
     private int capacity;
+    
+    /** The size. */
     private int size;
+    
+    /** Static tombstone variable */
     public static Handle tombstone = new Handle(-1, null);
 
+    /**
+     * Instantiates a new hash table.
+     *
+     * @param size the size of the hashtable
+     */
     public HashTable(int size)
     {
         this.size = 0;
@@ -13,6 +32,11 @@ public class HashTable
         hashTable = new Handle[this.capacity];
     }
 
+    /**
+     * Inserts a new handle into the hash table
+     *
+     * @param toStore the handle to insert
+     */
     public void insert(Handle toStore)
     {
         String toHash = toStore.getString();
@@ -53,6 +77,13 @@ public class HashTable
         }
     }
 
+    /**
+     * Removes the string from the hashtable if it contains it
+     *
+     * @param toRemove the string to remove
+     * @return the handle if removed. Otherwise null if the hashtable did not
+     * contain the string
+     */
     public Handle remove(String toRemove)
     {
         int locationToStore = hashFunction(toRemove);
@@ -94,6 +125,12 @@ public class HashTable
         }
     }
 
+    /**
+     * Finds the string in the hash table
+     *
+     * @param toFind the string to find
+     * @return the handle if it was found. Else returns null
+     */
     public Handle find(String toFind)
     {
         int locationToStore = hashFunction(toFind);
@@ -130,11 +167,22 @@ public class HashTable
         }
     }
 
+    /**
+     * To array.
+     *
+     * @return the handle[]
+     */
     public Handle[] toArray()
     {
         return hashTable.clone();
     }
 
+    /**
+     * Hash function.
+     *
+     * @param toHash the string to hash
+     * @return the hash code
+     */
     private int hashFunction(String toHash)
     {
         // System.out.println(toHash);
