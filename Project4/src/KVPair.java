@@ -73,11 +73,11 @@ public class KVPair implements Comparable<KVPair>
         
         
         int keyCompare = key.compareTo(other.getKey());
-        if (value == Handle.search)
+        if (value == Handle.SEARCH)
         {
             return keyCompare;
         }
-        if (other.getValue() == Handle.search)
+        if (other.getValue() == Handle.SEARCH)
         {
             return keyCompare;
         }

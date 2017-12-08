@@ -34,6 +34,7 @@ public class BSTTest
         manager = new MemoryManager(100);
         handle = new ArrayList<Handle>();
         pair = new ArrayList<KVPair>();
+        int duplicates = 0;
         
         duplicates = 0;
         
@@ -41,8 +42,15 @@ public class BSTTest
 
         for (int i = 0; i < 101; i++)
         {
-            int x  = 100 + random.nextInt(900);
-            
+            int x = 99;
+            if (random.nextInt(5) == 0)
+            {
+                duplicates++;
+            }
+            else
+            {
+                x = 100 + random.nextInt(900);
+            }
             handle.add(new Handle(manager.insert(x + ""), manager));
         }
         for (int i = 0; i < 50; i++)
@@ -57,7 +65,7 @@ public class BSTTest
                 pair.add(new KVPair(handle.get(i), handle.get(i + 50)));
             }
         }
-
+        
     }
 
 
@@ -74,14 +82,14 @@ public class BSTTest
         assertEquals(bst.size(), 1);
         assertNotNull(bst.getRoot());
         
-        KVPair findMe = new KVPair(handle.get(0), Handle.search);
+        KVPair findMe = new KVPair(handle.get(0), Handle.SEARCH);
         
         assertEquals(bst.find(findMe).size(), 1);
         
         
-        KVPair removeMe = new KVPair(pair.get(1).getKey(), Handle.search);
+        KVPair removeMe = new KVPair(pair.get(1).getKey(), Handle.SEARCH);
         assertNull(bst.remove(removeMe));
-        removeMe = new KVPair(pair.get(0).getKey(), Handle.search);
+        removeMe = new KVPair(pair.get(0).getKey(), Handle.SEARCH);
         assertNotNull(bst.remove(removeMe));
         
 
@@ -99,7 +107,7 @@ public class BSTTest
         assertEquals(bst.size(), removeList.size());
         
         
-        findMe = new KVPair(handle.get(100), Handle.search);
+        findMe = new KVPair(handle.get(100), Handle.SEARCH);
         
         assertEquals(bst.find(findMe).size(), duplicates);
         
@@ -108,7 +116,7 @@ public class BSTTest
         while (!removeList.isEmpty())
         {
             int i = random.nextInt(removeList.size());
-            removeMe = new KVPair(removeList.get(i).getKey(), Handle.search);
+            removeMe = new KVPair(removeList.get(i).getKey(), Handle.SEARCH);
             System.out.printf("get(i): %s, removeMe: %s\n",
                     removeList.get(i).getString(), removeMe.getString());
             //assertEquals(removeList.get(i), bst.remove(removeMe));
