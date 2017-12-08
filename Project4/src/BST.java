@@ -125,8 +125,8 @@ public class BST<T extends Comparable<? super T>>
      *            The value to remove
      * @param rt
      *            The current node to search
-     * @param found
-     *            The value removed   
+     * @param rt
+     *            The current node to search    
      * @return The tree with the node removed
      */
     private Node<T> removehelp(Node<T> rt, T t, T found)

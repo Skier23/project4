@@ -249,7 +249,7 @@ public class DataManager
         }
     }
 
-    public void printArtist()
+    public int printArtist()
     {
         Handle[] artists = artistTable.toArray();
         int size = 0;
@@ -263,9 +263,10 @@ public class DataManager
         }
         System.out.println("total artists: " + size);
 
+        return size;
     }
 
-    public void printSong()
+    public int printSong()
     {
         Handle[] songs = songTable.toArray();
         int size = 0;
@@ -279,6 +280,7 @@ public class DataManager
         }
         System.out.println("total songs: " + size);
 
+        return size;
     }
 
     /**
