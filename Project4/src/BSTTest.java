@@ -31,8 +31,9 @@ public class BSTTest
     {
         bst = new BST<KVPair>();
         MemoryManager manager = new MemoryManager(100);
-        ArrayList<Handle>handle = new ArrayList<Handle>();
+        ArrayList<Handle> handle = new ArrayList<Handle>();
         pair = new ArrayList<KVPair>();
+        int duplicates = 0;
         
         //duplicates = 0;
         
@@ -43,7 +44,7 @@ public class BSTTest
             int x = 99;
             if (random.nextInt(5) == 0)
             {
-                //duplicates++;
+                duplicates++;
             }
             else
             {
@@ -55,7 +56,7 @@ public class BSTTest
         {
             pair.add(new KVPair(handle.get(i), handle.get(i + 50)));
         }
-
+        
     }
 
 
