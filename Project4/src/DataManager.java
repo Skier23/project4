@@ -133,8 +133,8 @@ public class DataManager
             songTree.remove(songPair);
             System.out.println("The KVPair " + songPair.getString()
                     + " is deleted from the tree.");
-            KVPair artistSearch = new KVPair(artistHandle, Handle.search);
-            KVPair songSearch = new KVPair(songHandle, Handle.search);
+            KVPair artistSearch = new KVPair(artistHandle, Handle.SEARCH);
+            KVPair songSearch = new KVPair(songHandle, Handle.SEARCH);
 
             if (artistTree.find(artistSearch).isEmpty())
             {
@@ -177,7 +177,7 @@ public class DataManager
         }
         else
         {
-            KVPair artistSearch = new KVPair(artistHandle, Handle.search);
+            KVPair artistSearch = new KVPair(artistHandle, Handle.SEARCH);
             ArrayList<KVPair> toRemove = artistTree.find(artistSearch);
             for (int i = 0; i < toRemove.size(); i++)
             {
@@ -185,9 +185,9 @@ public class DataManager
                 KVPair toRemoveOther = new KVPair(removed.getValue(),
                         removed.getKey());
                 KVPair removedSearch = new KVPair(removed.getValue(),
-                        Handle.search);
+                        Handle.SEARCH);
                 KVPair removedSearch2 = new KVPair(removed.getKey(),
-                        Handle.search);
+                        Handle.SEARCH);
                 System.out.println("The KVPair " + removed.getString()
                         + " is deleted from the tree.");
                 songTree.remove(toRemoveOther);
@@ -227,7 +227,7 @@ public class DataManager
         }
         else
         {
-            KVPair songSearch = new KVPair(songHandle, Handle.search);
+            KVPair songSearch = new KVPair(songHandle, Handle.SEARCH);
             ArrayList<KVPair> toRemove = songTree.find(songSearch);
             for (int i = 0; i < toRemove.size(); i++)
             {
@@ -235,9 +235,9 @@ public class DataManager
                 KVPair toRemoveOther = new KVPair(removed.getValue(),
                         removed.getKey());
                 KVPair removedSearch = new KVPair(removed.getValue(),
-                        Handle.search);
+                        Handle.SEARCH);
                 KVPair removedSearch2 = new KVPair(removed.getKey(),
-                        Handle.search);
+                        Handle.SEARCH);
                 System.out.println("The KVPair " + removed.getString()
                         + " is deleted from the tree.");
                 artistTree.remove(toRemoveOther);
@@ -271,7 +271,7 @@ public class DataManager
         int size = 0;
         for (int i = 0; i < artists.length; i++)
         {
-            if (artists[i] != HashTable.tombstone && artists[i] != null)
+            if (artists[i] != HashTable.TOMBSTONE && artists[i] != null)
             {
                 System.out.println("|" + artists[i].getString() + "| " + i);
                 size++;
@@ -289,7 +289,7 @@ public class DataManager
         int size = 0;
         for (int i = 0; i < songs.length; i++)
         {
-            if (songs[i] != HashTable.tombstone && songs[i] != null)
+            if (songs[i] != HashTable.TOMBSTONE && songs[i] != null)
             {
                 System.out.println("|" + songs[i].getString() + "| " + i);
                 size++;
@@ -374,7 +374,7 @@ public class DataManager
             return 0;
         }
 
-        KVPair findMe = new KVPair(artistHandle, Handle.search);
+        KVPair findMe = new KVPair(artistHandle, Handle.SEARCH);
         ArrayList<KVPair> list = artistTree.find(findMe);
 
         for (KVPair pair : list)
@@ -404,7 +404,7 @@ public class DataManager
             return 0;
         }
 
-        KVPair findMe = new KVPair(songHandle, Handle.search);
+        KVPair findMe = new KVPair(songHandle, Handle.SEARCH);
         ArrayList<KVPair> list = songTree.find(findMe);
 
         for (KVPair pair : list)

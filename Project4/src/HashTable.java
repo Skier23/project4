@@ -18,7 +18,7 @@ public class HashTable
     private int size;
     
     /** Static tombstone variable */
-    public static Handle tombstone = new Handle(-1, null);
+    public static Handle TOMBSTONE = new Handle(-1, null);
 
     /**
      * Instantiates a new hash table.
@@ -48,7 +48,7 @@ public class HashTable
             size = 0;
             for (int i = 0; i < capacity / 2; i++)
             {
-                if (tempTable[i] != null && tempTable[i] != tombstone)
+                if (tempTable[i] != null && tempTable[i] != TOMBSTONE)
                 {
                     insert(tempTable[i]);
                 }
@@ -56,7 +56,7 @@ public class HashTable
         }
         int locationToStore = hashFunction(toHash);
         if (table[locationToStore] == null
-                || table[locationToStore] == tombstone)
+                || table[locationToStore] == TOMBSTONE)
         {
             table[locationToStore] = toStore;
             size++;
@@ -65,7 +65,7 @@ public class HashTable
         {
             int offset = 1;
             while (table[(locationToStore + (offset * offset))
-                    % capacity] != tombstone
+                    % capacity] != TOMBSTONE
                     && table[(locationToStore + (offset * offset))
                             % capacity] != null)
             {
@@ -91,11 +91,11 @@ public class HashTable
         {
             return null;
         }
-        if (table[locationToStore] != tombstone
+        if (table[locationToStore] != TOMBSTONE
                 && table[locationToStore].getString().equals(toRemove))
         {
             Handle temp = table[locationToStore];
-            table[locationToStore] = tombstone;
+            table[locationToStore] = TOMBSTONE;
             size--;
             return temp;
         }
@@ -103,7 +103,7 @@ public class HashTable
         {
             int offset = 1;
             while (table[(locationToStore + (offset * offset))
-                    % capacity] == tombstone
+                    % capacity] == TOMBSTONE
                     || (table[(locationToStore + (offset * offset))
                             % capacity] != null
                             && !table[(locationToStore + (offset * offset))
@@ -119,7 +119,7 @@ public class HashTable
             Handle temp = table[(locationToStore + (offset * offset))
                     % capacity];
             table[(locationToStore + (offset * offset))
-                    % capacity] = tombstone;
+                    % capacity] = TOMBSTONE;
             size--;
             return temp;
         }
@@ -138,7 +138,7 @@ public class HashTable
         {
             return null;
         }
-        if (table[locationToStore] != tombstone
+        if (table[locationToStore] != TOMBSTONE
                 && table[locationToStore].getString().equals(toFind))
         {
             Handle temp = table[locationToStore];
@@ -148,7 +148,7 @@ public class HashTable
         {
             int offset = 1;
             while (table[(locationToStore + (offset * offset))
-                    % capacity] == tombstone
+                    % capacity] == TOMBSTONE
                     || (table[(locationToStore + (offset * offset))
                             % capacity] != null
                             && !table[(locationToStore + (offset * offset))

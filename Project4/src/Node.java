@@ -22,23 +22,6 @@ public class Node<T>
     // Node's right-hand child node
     private Node<T> right;
 
-    // ~ Constructor
-    // ............................................................
-    // ------------------------------------------------------------
-    /**
-     * Constructs a new Node object with a given key, data to hold, and two
-     * sub-nodes.
-     *
-     * @param data            The data contained within the node
-     * @param leftLocal            The new node's left hand sub node
-     * @param rightLocal            The new node's right hand sub node
-     */
-    public Node(T data, Node<T> leftLocal, Node<T> rightLocal)
-    {
-        value = data;
-        left = leftLocal;
-        right = rightLocal;
-    }
 
     // ------------------------------------------------------------
     /**
@@ -122,14 +105,4 @@ public class Node<T>
         right = newRight;
     }
 
-    // ------------------------------------------------------------
-    /**
-     * Checks to see if the node is a leaf node.
-     * 
-     * @return true if the node has no children, false otherwise.
-     */
-    public boolean isLeaf()
-    {
-        return (left == null) && (right == null);
-    }
 }

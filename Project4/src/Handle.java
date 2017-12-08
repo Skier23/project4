@@ -15,7 +15,7 @@ public class Handle implements Comparable<Handle>
     private MemoryManager manager;
     
     /** static search field to compare */
-    public static final Handle search = new Handle(-1, null);
+    public static final Handle SEARCH = new Handle(-1, null);
     
     /**
      * Instantiates a new handle.

@@ -70,9 +70,9 @@ public class BSTTest
     {
         bst.insert(pair.get(0)); 
         assertEquals(bst.size(), 1);
-        KVPair removeMe = new KVPair(pair.get(1).getKey(), Handle.search);
+        KVPair removeMe = new KVPair(pair.get(1).getKey(), Handle.SEARCH);
         assertNull(bst.remove(removeMe));
-        removeMe = new KVPair(pair.get(0).getKey(), Handle.search);
+        removeMe = new KVPair(pair.get(0).getKey(), Handle.SEARCH);
         assertNotNull(bst.remove(removeMe));
         
 
@@ -97,7 +97,7 @@ public class BSTTest
         while (!removeList.isEmpty())
         {
             int i = random.nextInt(removeList.size());
-            removeMe = new KVPair(removeList.get(i).getKey(), Handle.search);
+            removeMe = new KVPair(removeList.get(i).getKey(), Handle.SEARCH);
             assertEquals(removeList.get(i), bst.remove(removeMe));
             removeList.remove(i);
         }
