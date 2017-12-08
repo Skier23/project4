@@ -62,7 +62,7 @@ public class BSTTest
 
 
     /**
-     * Tests the insert, find, and remove methods in BST.
+     * Tests the insert remove methods in BST.
      * 
      * @Test - indicates that this is a test method
      */
