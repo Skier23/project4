@@ -15,17 +15,6 @@ public class SongSearchTest
 {
 
     /**
-     * Sets up the tests
-     *
-     * @throws Exception the exception
-     */
-    @Before
-    public void setUp() throws Exception
-    {
-        System.out.println("todo");
-    }
-
-    /**
      * Tests the checkArgs method with a variety of inputs.
      *
      * @Test indicates that this is a test method
@@ -77,6 +66,13 @@ public class SongSearchTest
         assertTrue(SongSearch.execute("insert Creedence Clearwater Revival<SEP>"
                 + "Fortunate Son", data));
         assertTrue(SongSearch.execute("insert Heart<SEP>MagicMan", data));
+        
+        assertFalse(SongSearch.execute("print", data));
+        assertFalse(SongSearch.execute("print nothing", data));
+        assertTrue(SongSearch.execute("print artist", data));
+        assertTrue(SongSearch.execute("print song", data));
+        assertTrue(SongSearch.execute("print tree", data));
+        
         
         assertFalse(SongSearch.execute("delete", data));
         assertFalse(SongSearch.execute("delete fail", data));
