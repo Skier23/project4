@@ -18,7 +18,7 @@ public class HashTable
     private int size;
     
     /** Static tombstone variable */
-    public static Handle TOMBSTONE = new Handle(-1, null);
+    public static final Handle TOMBSTONE = new Handle(-1, null);
 
     /**
      * Instantiates a new hash table.
