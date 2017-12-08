@@ -16,10 +16,11 @@ import org.junit.Test;
 public class BSTTest
 {
     private BST<KVPair> bst;
-    //private MemoryManager manager;
+    private MemoryManager manager;
     private Random random;
+    private ArrayList<Handle> handle;
     private ArrayList<KVPair> pair;
-    //private int duplicates;
+    private int duplicates;
     
     /**
      * Initializes the BST and various KVPairs and Handles
@@ -30,16 +31,16 @@ public class BSTTest
     public void setUp()
     {
         bst = new BST<KVPair>();
-        MemoryManager manager = new MemoryManager(100);
-        ArrayList<Handle> handle = new ArrayList<Handle>();
+        manager = new MemoryManager(100);
+        handle = new ArrayList<Handle>();
         pair = new ArrayList<KVPair>();
         int duplicates = 0;
         
-        //duplicates = 0;
+        duplicates = 0;
         
         random = new Random();
 
-        for (int i = 0; i < 500; i++)
+        for (int i = 0; i < 101; i++)
         {
             int x = 99;
             if (random.nextInt(5) == 0)
@@ -54,22 +55,38 @@ public class BSTTest
         }
         for (int i = 0; i < 50; i++)
         {
-            pair.add(new KVPair(handle.get(i), handle.get(i + 50)));
+            if (random.nextInt(5) == 0)
+            {
+                pair.add(new KVPair(handle.get(100), handle.get(i + 50)));
+                duplicates++;
+            }
+            else
+            {
+                pair.add(new KVPair(handle.get(i), handle.get(i + 50)));
+            }
         }
         
     }
 
 
     /**
-     * Tests the insert and remove methods in BST.
+     * Tests the insert, find, and remove methods in BST.
      * 
      * @Test - indicates that this is a test method
      */
     @Test
     public void testInsertFindRemove()
     {
+        assertNull(bst.getRoot());
         bst.insert(pair.get(0)); 
         assertEquals(bst.size(), 1);
+        assertNotNull(bst.getRoot());
+        
+        KVPair findMe = new KVPair(handle.get(0), Handle.SEARCH);
+        
+        assertEquals(bst.find(findMe).size(), 1);
+        
+        
         KVPair removeMe = new KVPair(pair.get(1).getKey(), Handle.SEARCH);
         assertNull(bst.remove(removeMe));
         removeMe = new KVPair(pair.get(0).getKey(), Handle.SEARCH);
@@ -90,15 +107,21 @@ public class BSTTest
         assertEquals(bst.size(), removeList.size());
         
         
-        //KVPair findMe = new KVPair(, Handle.search);
-        //ArrayList<KVPair> dupes = bst.find(
+        findMe = new KVPair(handle.get(100), Handle.SEARCH);
         
+        assertEquals(bst.find(findMe).size(), duplicates);
+        
+
         
         while (!removeList.isEmpty())
         {
             int i = random.nextInt(removeList.size());
             removeMe = new KVPair(removeList.get(i).getKey(), Handle.SEARCH);
-            assertEquals(removeList.get(i), bst.remove(removeMe));
+            System.out.printf("get(i): %s, removeMe: %s\n",
+                    removeList.get(i).getString(), removeMe.getString());
+            //assertEquals(removeList.get(i), bst.remove(removeMe));
+            assertEquals(removeMe.compareTo(bst.remove(removeMe)), 0);
+
             removeList.remove(i);
         }
         

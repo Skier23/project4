@@ -55,12 +55,12 @@ public class DataManagerTest
         assertEquals(2, manager.listSong(song[0]));
     }
     /**
-     * Tests the delete method in DataManager.
+     * Tests the delete and print methods in DataManager.
      * 
      * @Test - indicates that this is a test method
      */
     @Test
-    public void testDelete()
+    public void testDeletePrint()
     {
         manager.insert(artist[0], song[0]);
         manager.delete(artist[1], song[1]);
@@ -85,10 +85,10 @@ public class DataManagerTest
         assertEquals(1, manager.listArtist(artist[0]));
         assertEquals(1, manager.listSong(song[0]));
         manager.delete(artist[1], song[0]);
-        manager.printArtist();
-        manager.printSong();
+        assertEquals(1, manager.printArtist());
+        assertEquals(1, manager.printSong());
         manager.insert(artist[1], song[1]);
-        manager.printTree();
+        assertEquals(4, manager.printTree());
         assertEquals(1, manager.listArtist(artist[1]));
         assertEquals(2, manager.listSong(song[1]));
     }
