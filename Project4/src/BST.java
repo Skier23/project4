@@ -119,14 +119,11 @@ public class BST<T extends Comparable<? super T>>
     }
 
     /**
-     * Recursive helper method to remove a node with value t
-     * 
-     * @param t
-     *            The value to remove
-     * @param rt
-     *            The current node to search
-     * @param rt
-     *            The current node to search    
+     * Recursive helper method to remove a node with value t.
+     *
+     * @param rt            The current node to search    
+     * @param t            The value to remove
+     * @param found the found
      * @return The tree with the node removed
      */
     private Node<T> removehelp(Node<T> rt, T t, T found)
