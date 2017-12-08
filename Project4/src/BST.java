@@ -56,8 +56,6 @@ public class BST<T extends Comparable<? super T>>
      * calls a recursive helper method and increments the node count. Rejects
      * any record that already exists in the tree
      * 
-     * @param k
-     *            Key value of the record.
      * @param t
      *            The record to insert.
      * @return true if the record was successfully inserted, false if it already
@@ -127,16 +125,18 @@ public class BST<T extends Comparable<? super T>>
      *            The value to remove
      * @param rt
      *            The current node to search
+     * @param found
+     *            The value removed   
      * @return The tree with the node removed
      */
     private Node<T> removehelp(Node<T> rt, T t, T found)
     {
 
-        if (rt.value().compareTo(t) > 0) // k is left of rt
+        if (rt.value().compareTo(t) > 0) // t is left of rt
         {
             rt.setLeft(removehelp(rt.left(), t, found));
         }
-        else if (rt.value().compareTo(t) < 0) // k is right of rt
+        else if (rt.value().compareTo(t) < 0) // t is right of rt
         {
             rt.setRight(removehelp(rt.right(), t, found));
         }
@@ -169,8 +169,6 @@ public class BST<T extends Comparable<? super T>>
      * 
      * @param rt
      *            The node to search in each iteration of recursion
-     * @param k
-     *            The key value to search for
      * @param result
      *            An ArrayList containing the values of all nodes corresponding
      *            to the given key
@@ -204,8 +202,6 @@ public class BST<T extends Comparable<? super T>>
      * 
      * @param rt
      *            The node to search in each iteration of recursion
-     * @param k
-     *            The key value to search for
      * @param result
      *            An ArrayList containing the values of all nodes corresponding
      *            to the given key
@@ -241,8 +237,6 @@ public class BST<T extends Comparable<? super T>>
      * @param rt
      *            The node current node, used to recursively iterate through the
      *            tree
-     * @param k
-     *            The new node's key value
      * @param t
      *            The new node's data.
      * @param level

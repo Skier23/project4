@@ -1,6 +1,13 @@
 import java.io.File;
 import java.util.Scanner;
 
+/**
+ * Tests the methods of DataManager
+ * 
+ * @author Tyler Bench, ski23
+ * @author Christian Dy, k4b0odls
+ * @version 2017-10-18
+ */
 public class SongSearch
 {
     /**
@@ -51,7 +58,7 @@ public class SongSearch
      * the initial sizes are not 0
      * @param args
      *      Arguments for main that need to be checked
-     * @return true if the params are valid, false otherwise
+     * @return true if the arguments are valid, false otherwise
      */
     public static boolean checkArgs(String[] args)
     {
@@ -103,6 +110,8 @@ public class SongSearch
      * 
      * @param input
      *            A string that contains the command and its parameters
+     * @param data
+     *            The DataManager to send execute commands to           
      * @return true if the command was valid, false otherwise.
      */
     public static boolean execute(String input, DataManager data)
@@ -225,8 +234,9 @@ public class SongSearch
                             System.out.println(
                                     "Invalid print format. Valid formats "
                                             + "are print {artist|song|tree}");
-                            return false;
+                            
                     }
+                    return false;
                 }
 
             default:

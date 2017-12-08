@@ -18,9 +18,9 @@ public class BSTTest
     private BST<KVPair> bst;
     private MemoryManager manager;
     private Random random;
-    private ArrayList<Handle> handle;
     private ArrayList<KVPair> pair;
-
+    private int duplicates;
+    
     /**
      * Initializes the BST and various KVPairs and Handles
      * 
@@ -30,15 +30,25 @@ public class BSTTest
     public void setUp()
     {
         bst = new BST<KVPair>();
-        MemoryManager manager = new MemoryManager(100);
-        handle = new ArrayList<Handle>();
+        manager = new MemoryManager(100);
+        ArrayList<Handle >handle = new ArrayList<Handle>();
         pair = new ArrayList<KVPair>();
+        
+        duplicates = 0;
         
         random = new Random();
 
-        for (int i = 0; i < 100; i++)
+        for (int i = 0; i < 500; i++)
         {
-            int x = 100 + random.nextInt(900);
+            int x = 99;
+            if (random.nextInt(5) == 0)
+            {
+                duplicates++;
+            }
+            else
+            {
+                x = 100 + random.nextInt(900);
+            }
             handle.add(new Handle(manager.insert(x + ""), manager));
         }
         for (int i = 0; i < 50; i++)
@@ -55,7 +65,7 @@ public class BSTTest
      * @Test - indicates that this is a test method
      */
     @Test
-    public void testInsertRemove()
+    public void testInsertFindRemove()
     {
         bst.insert(pair.get(0)); 
         assertEquals(bst.size(), 1);
@@ -64,8 +74,9 @@ public class BSTTest
         removeMe = new KVPair(pair.get(0).getKey(), Handle.search);
         assertNotNull(bst.remove(removeMe));
         
+
         
-        ArrayList<KVPair> remove = new ArrayList<KVPair>(pair);
+        ArrayList<KVPair> removeList = new ArrayList<KVPair>(pair);
         
         while (!pair.isEmpty())
         {
@@ -75,14 +86,19 @@ public class BSTTest
             pair.remove(i);
         }
         
-        assertEquals(bst.size(), remove.size());
+        assertEquals(bst.size(), removeList.size());
         
-        while (!remove.isEmpty())
+        
+        //KVPair findMe = new KVPair(, Handle.search);
+        //ArrayList<KVPair> dupes = bst.find(
+        
+        
+        while (!removeList.isEmpty())
         {
-            int i = random.nextInt(remove.size());
-            removeMe = new KVPair(remove.get(i).getKey(), Handle.search);
-            assertEquals(remove.get(i), bst.remove(removeMe));
-            remove.remove(i);
+            int i = random.nextInt(removeList.size());
+            removeMe = new KVPair(removeList.get(i).getKey(), Handle.search);
+            assertEquals(removeList.get(i), bst.remove(removeMe));
+            removeList.remove(i);
         }
         
         assertNull(bst.remove(removeMe));
