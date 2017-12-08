@@ -9,13 +9,13 @@ public class Handle implements Comparable<Handle>
 {
     
     /** The handle aka the address in the array. */
-    private int handle;
+    private int handleAddr;
     
     /** The memory manager. */
     private MemoryManager manager;
     
     /** static search field to compare */
-    public static Handle search = new Handle(-1, null);
+    public static final Handle search = new Handle(-1, null);
     
     /**
      * Instantiates a new handle.
@@ -25,7 +25,7 @@ public class Handle implements Comparable<Handle>
      */
     public Handle(int myHandle, MemoryManager myData)
     {
-        handle = myHandle;
+        handleAddr = myHandle;
         manager = myData;
     }
     
@@ -36,17 +36,17 @@ public class Handle implements Comparable<Handle>
      */
     public int getHandle()
     {
-        return handle;
+        return handleAddr;
     }
     
-    /* 
+    /** 
      * gets the handle address as a string
      * 
      * @return the handle address as a string
      */
     public String toString()
     {
-        return handle + "";
+        return handleAddr + "";
     }
     
     /**
@@ -60,7 +60,7 @@ public class Handle implements Comparable<Handle>
         {
             return null;
         }
-        return manager.getString(handle);
+        return manager.getString(handleAddr);
     }
     
     /* 
@@ -73,7 +73,7 @@ public class Handle implements Comparable<Handle>
     public int compareTo(Handle other)
     {
         
-        return handle - other.getHandle();
+        return handleAddr - other.getHandle();
         
     }
 }
