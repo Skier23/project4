@@ -15,7 +15,6 @@ import org.junit.Test;
 public class DataManagerTest
 {
     private DataManager manager;
-    private ByteArrayOutputStream stream;
     private String[] artist;
     private String[] song;
 
@@ -33,7 +32,7 @@ public class DataManagerTest
         for (int i = 0; i < artist.length; i++)
         {
             artist[i] = String.format("artist%4d", i);
-            song[i] = String.format("song6d", i);
+            song[i] = String.format("song%6d", i);
         }
         
     }
@@ -47,28 +46,86 @@ public class DataManagerTest
     public void testInsert()
     {
         manager.insert(artist[0], song[0]);
-        
-        /*KVPair inserted = manager.insert("tyler", "the cool blues");
-        
-        assertEquals(inserted.getKey().getString(), "tyler");
-        assertEquals(inserted.getValue().getString(), "the cool blues");
-        
-        KVPair duplicate = manager.insert("tyler", "the cool blues");
-        
-        System.out.println(inserted.toString());
-        System.out.println(duplicate.toString());
-        assertNotEquals(inserted, duplicate);*/
-
+        assertEquals(1, manager.listArtist(artist[0]));
+        assertEquals(1, manager.listSong(song[0]));
+        manager.insert(artist[0], song[0]);
+        manager.insert(artist[0], song[1]);
+        assertEquals(2, manager.listArtist(artist[0]));
+        assertEquals(1, manager.listSong(song[0]));
+        manager.insert(artist[1], song[0]);
+        assertEquals(2, manager.listArtist(artist[0]));
+        assertEquals(2, manager.listSong(song[0]));
     }
     /**
-     * Tests the Insert method in DataManager.
+     * Tests the delete method in DataManager.
      * 
      * @Test - indicates that this is a test method
      */
     @Test
     public void testDelete()
     {
-        manager.insert("tyler", "the cool blues");
-        manager.delete("tyler", "the cool blues");
+        manager.insert(artist[0], song[0]);
+        manager.delete(artist[1], song[1]);
+        manager.delete(artist[0], song[1]);
+        manager.delete(artist[1], song[0]);
+        assertEquals(1, manager.listArtist(artist[0]));
+        assertEquals(1, manager.listSong(song[0]));
+        manager.delete(artist[0], song[0]);
+        assertEquals(0, manager.listArtist(artist[0]));
+        assertEquals(0, manager.listSong(song[0]));
+        manager.insert(artist[0], song[0]);
+        manager.insert(artist[1], song[0]);
+        manager.insert(artist[0], song[1]);
+        manager.delete(artist[0], song[0]);
+        manager.delete(artist[1], song[0]);
+        manager.delete(artist[0], song[1]);
+        assertEquals(0, manager.listArtist(artist[0]));
+        assertEquals(0, manager.listSong(song[0]));
+        manager.insert(artist[0], song[1]);
+        manager.insert(artist[1], song[0]);
+        manager.delete(artist[0], song[0]);
+        assertEquals(1, manager.listArtist(artist[0]));
+        assertEquals(1, manager.listSong(song[0]));
+        manager.delete(artist[1], song[0]);
+        manager.printArtist();
+        manager.printSong();
+        manager.insert(artist[1], song[1]);
+        manager.printTree();
+        assertEquals(1, manager.listArtist(artist[1]));
+        assertEquals(2, manager.listSong(song[1]));
+    }
+    /**
+     * Tests the removeArtist and removeSong method in DataManager as they are
+     *  basically identical
+     * 
+     * @Test - indicates that this is a test method
+     */
+    @Test
+    public void testRemoveArtistAndSong()
+    {
+        manager.insert(artist[0], song[0]);
+        manager.insert(artist[0], song[1]);
+        manager.removeArtist(artist[0]);
+        assertEquals(0, manager.listArtist(artist[0]));
+        manager.insert(artist[1], song[1]);
+        manager.removeArtist(artist[0]);
+        assertEquals(0, manager.listArtist(artist[0]));
+        manager.insert(artist[1], song[1]);
+        manager.insert(artist[0], song[1]);
+        manager.removeArtist(artist[0]);
+        assertEquals(0, manager.listArtist(artist[0]));
+        manager.removeSong(song[1]);
+        
+        manager.insert(artist[0], song[0]);
+        manager.insert(artist[1], song[0]);
+        manager.removeSong(song[0]);
+        assertEquals(0, manager.listSong(song[1]));
+        manager.insert(artist[1], song[1]);
+        manager.removeSong(song[0]);
+        assertEquals(0, manager.listSong(song[0]));
+        manager.insert(artist[0], song[0]);
+        manager.insert(artist[1], song[0]);
+        manager.removeSong(song[1]);
+        assertEquals(0, manager.listSong(song[1]));
     }
 }
